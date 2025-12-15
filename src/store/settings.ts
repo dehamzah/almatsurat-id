@@ -35,8 +35,8 @@ export function applyVisibility(type: 'transliteration' | 'translation', show: b
     if (typeof document === 'undefined') return;
     const cls = `hide-${type}`;
     if (!show) {
-        document.body.classList.add(cls);
+        document.documentElement.classList.add(cls);
     } else {
-        document.body.classList.remove(cls);
+        document.documentElement.classList.remove(cls);
     }
 }
