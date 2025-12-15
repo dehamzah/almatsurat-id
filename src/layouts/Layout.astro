@@ -1,26 +1,69 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+    description?: string;
+}
+
+const { title, description = "Dzikir Harian Muslim" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="id">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+        <meta name="description" content={description} />
+		<title>{title}</title>
+
+        {/* Blocking script to avoid FOUC */}
+        <script is:inline>
+            (function() {
+                try {
+                    // 1. Theme
+                    const theme = localStorage.getItem('settings:theme');
+                    if (
+                        theme === 'dark' || 
+                        (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
+                        (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+                    ) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+
+                    // 2. Font Size
+                    const fontSize = localStorage.getItem('settings:arabicFontSize') || '2';
+                    const sizes = {
+                        '1': '1.5rem',
+                        '2': '1.875rem',
+                        '3': '2.25rem',
+                        '4': '3rem',
+                        '5': '3.75rem'
+                    };
+                    const sizeVal = sizes[fontSize] || '1.875rem';
+                    document.documentElement.style.setProperty('--arabic-size', sizeVal);
+
+                    // 3. Visibility
+                    const showTransliteration = localStorage.getItem('settings:showTransliteration');
+                    if (showTransliteration === 'false') {
+                        document.body.classList.add('hide-transliteration');
+                    }
+
+                    const showTranslation = localStorage.getItem('settings:showTranslation');
+                    if (showTranslation === 'false') {
+                        document.body.classList.add('hide-translation');
+                    }
+                } catch (e) {
+                    console.error('Error applying settings:', e);
+                }
+            })();
+        </script>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

@@ -1,1 +1,76 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-cream-50: #FDFBF7;
+}
+
+:root {
+  --arabic-size: 3rem; /* Default size (2 on slider maps to approx 3rem or class text-3xl) */
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-x: hidden;
+}
+body {
+  background-color: #FDFBF7;
+  color: #1a1a1a;
+  height: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+html.dark body {
+  background-color: #1c1917; /* Warm Dark Grey */
+  color: #F7F5EE;
+}
+
+/* Custom Scrollbar for Dhikr cards */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Arabic Font */
+@font-face {
+  font-family: "kfgqpc_uthmanic_script_hafsRg";
+  src:
+    url("/fonts/kfgqpc_uthmanic_script_hafs_regular.woff2") format("woff2"),
+    url("/fonts/kfgqpc_uthmanic_script_hafs_regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-arabic {
+  font-family: "kfgqpc_uthmanic_script_hafsRg", serif;
+  line-height: 2.2;
+  font-size: var(--arabic-size);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter {
+  animation: enter 0.5s ease-out forwards;
+}
+
+/* Visibility Toggles */
+.hide-transliteration .transliteration {
+    display: none;
+}
+.hide-translation .translation {
+    display: none;
+}
