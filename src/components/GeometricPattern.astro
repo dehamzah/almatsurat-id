@@ -1,0 +1,29 @@
+---
+interface Props {
+    class?: string;
+    className?: string; // Support both just in case, though standard Astro uses class
+}
+
+const { class: className = "", className: classNameProp = "" } = Astro.props;
+const finalClass = className || classNameProp;
+---
+
+<svg
+    class={finalClass}
+    viewBox="0 0 100 100"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <path d="M100 0H50L75 25L100 0Z" fill-opacity="0.1"></path>
+    <path d="M100 50V0L75 25L100 50Z" fill-opacity="0.1"></path>
+    <path d="M50 0L75 25L50 50L25 25L50 0Z" fill-opacity="0.05"></path>
+    <circle cx="100" cy="0" r="15" fill-opacity="0.1"></circle>
+    <circle
+        cx="100"
+        cy="0"
+        r="30"
+        fill="none"
+        stroke="currentColor"
+        stroke-opacity="0.1"
+        stroke-width="1"></circle>
+</svg>

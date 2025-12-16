@@ -1,0 +1,95 @@
+---
+interface Props {
+    variant?: "star" | "hex" | "circle";
+}
+
+const { variant = "star" } = Astro.props;
+---
+
+<div
+    class="absolute top-0 left-0 w-full h-[60vh] overflow-hidden -z-10 pointer-events-none select-none"
+>
+    {/* SVG Pattern */}
+    <svg
+        class="w-full h-full text-stone-700/10 dark:text-stone-100/10"
+        width="100%"
+        height="100%"
+    >
+        <defs>
+            {
+                /* Variant 1: 8-Point Star (Rosette) - Best for general Islamic feel */
+            }
+            <pattern
+                id="pattern-star"
+                x="0"
+                y="0"
+                width="64"
+                height="64"
+                patternUnits="userSpaceOnUse"
+                patternTransform="scale(1)"
+            >
+                <g fill="none" stroke="currentColor" stroke-width="1">
+                    <path d="M32 0 L48 16 L64 0"></path>
+                    <path d="M0 32 L16 16 L32 0"></path>
+                    <path d="M64 32 L48 16 L32 0"></path>
+                    <path d="M32 64 L48 48 L64 64"></path>
+                    <path d="M0 32 L16 48 L32 64"></path>
+                    <path d="M64 32 L48 48 L32 64"></path>
+                    <path d="M16 16 L48 16"></path>
+                    <path d="M16 48 L48 48"></path>
+                    <path d="M16 16 L16 48"></path>
+                    <path d="M48 16 L48 48"></path>
+                    <path d="M32 8 L56 32 L32 56 L8 32 Z" opacity="0.5"></path>
+                </g>
+            </pattern>
+
+            {/* Variant 2: Hexagonal Weave - More geometric/modern */}
+            <pattern
+                id="pattern-hex"
+                x="0"
+                y="0"
+                width="56"
+                height="96"
+                patternUnits="userSpaceOnUse"
+                patternTransform="scale(0.8)"
+            >
+                <g fill="none" stroke="currentColor" stroke-width="1">
+                    <path d="M28 0 L56 16 L56 48 L28 64 L0 48 L0 16 Z"></path>
+                    <path d="M28 32 L56 48 L28 64 L0 48 Z" opacity="0.3"></path>
+                    <path d="M28 0 V32"></path>
+                    <path d="M28 64 V96"></path>
+                    <path d="M0 16 L28 32 L56 16"></path>
+                    <path d="M0 48 L28 32 L56 48"></path>
+                </g>
+            </pattern>
+
+            {/* Variant 3: Overlapping Circles (Floral) - Softer/Organic */}
+            <pattern
+                id="pattern-circle"
+                x="0"
+                y="0"
+                width="40"
+                height="40"
+                patternUnits="userSpaceOnUse"
+                patternTransform="scale(1.2)"
+            >
+                <g fill="none" stroke="currentColor" stroke-width="1">
+                    <circle cx="0" cy="0" r="20"></circle>
+                    <circle cx="40" cy="0" r="20"></circle>
+                    <circle cx="0" cy="40" r="20"></circle>
+                    <circle cx="40" cy="40" r="20"></circle>
+                    <circle cx="20" cy="20" r="20"></circle>
+                </g>
+            </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill={`url(#pattern-${variant})`}
+        ></rect>
+    </svg>
+
+    {/* Gradient Overlay for Fade Effect */}
+    <div
+        class="absolute inset-0 bg-gradient-to-b from-transparent via-cream-50/20 dark:via-stone-950/20 to-cream-50 dark:to-stone-950"
+    >
+    </div>
+</div>
