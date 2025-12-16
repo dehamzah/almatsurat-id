@@ -48,9 +48,6 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
                     class="p-2 -ml-2 text-stone-600 dark:text-stone-300 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 rounded-full transition-colors flex items-center gap-2"
                 >
                     <ChevronLeft size={20} />
-                    <span class="font-medium text-sm hidden sm:inline"
-                        >Kembali</span
-                    >
                 </a>
 
                 <div class="flex flex-col items-center">
@@ -66,7 +63,7 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
                     </span>
                 </div>
 
-                {/* <SettingsToggle client:visible /> */}
+                <SettingsToggle client:visible />
             </div>
         </div>
 
@@ -115,5 +112,5 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
         </div>
     </div>
 
-    {/* <SettingsModal client:idle /> */}
+    <SettingsModal client:idle />
 </Layout>
