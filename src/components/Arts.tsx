@@ -88,5 +88,3 @@ export const GeometricPattern: React.FC<{ className?: string }> = ({ className =
     </svg>
 );
 
-
-// DhikrCard moved to ./DhikrCard.tsx
