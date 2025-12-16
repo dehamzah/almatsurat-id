@@ -12,17 +12,17 @@ const description = "Daily Prophetic Remembrances - Dzikir Pagi dan Petang";
 ---
 
 <Layout title={title} description={description}>
-	{/* Background Art - Static Render */}
-	<IslamicArtBackground />
-
-	{/* Header with Settings */}
-	<nav class="absolute top-0 right-0 p-4 z-20">
-		<SettingsToggle client:load />
-	</nav>
-
 	<div
 		class="w-full flex flex-col items-center justify-center min-h-[90vh] px-4 animate-fade-in relative z-10 py-6 md:py-12"
 	>
+		{/* Background Art - Static Render */}
+		<IslamicArtBackground />
+
+		{/* Header with Settings */}
+		<nav class="absolute top-0 right-0 p-4 z-20">
+			<SettingsToggle client:load />
+		</nav>
+
 		{/* Minimal Header */}
 		<div class="mb-6 md:mb-8 text-center mt-8">
 			<h1

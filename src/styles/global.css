@@ -15,16 +15,6 @@ html {
   height: 100%;
   overflow-x: hidden;
 }
-body {
-  background-color: #FDFBF7;
-  color: #1a1a1a;
-  height: 100%;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-html.dark body {
-  background-color: #1c1917; /* Warm Dark Grey */
-  color: #F7F5EE;
-}
 
 /* Custom Scrollbar for Dhikr cards */
 .no-scrollbar::-webkit-scrollbar {

@@ -79,7 +79,9 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
             })();
         </script>
     </head>
-    <body>
+    <body
+        class="min-h-screen bg-cream-50 dark:bg-stone-950 text-stone-800 dark:text-stone-100 font-sans selection:bg-emerald-200 selection:text-emerald-900"
+    >
         <slot />
     </body>
 </html>
