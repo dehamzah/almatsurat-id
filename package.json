@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "audit": "bun run build && start-server-and-test preview http://localhost:4321 'lighthouse http://localhost:4321 --view --no-enable-error-reporting'"
   },
   "dependencies": {
     "@astrojs/svelte": "^7.2.3",
@@ -17,5 +18,9 @@
     "nanostores": "^1.1.0",
     "svelte": "^5.46.0",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "lighthouse": "^13.0.1",
+    "start-server-and-test": "^2.1.3"
   }
 }
