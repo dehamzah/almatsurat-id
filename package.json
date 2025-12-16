@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "almatsurat-astro",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,15 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
+    "@astrojs/svelte": "^7.2.3",
     "@nanostores/persistent": "^1.2.0",
-    "@nanostores/react": "^1.0.0",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.5",
-    "lucide-react": "^0.561.0",
+    "lucide-svelte": "^0.561.0",
     "nanostores": "^1.1.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "svelte": "^5.46.0",
     "tailwindcss": "^4.1.18"
   }
 }

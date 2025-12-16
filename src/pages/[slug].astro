@@ -1,11 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import DhikrCard from "../components/DhikrCard.astro";
-import { ShareCard } from "../components/ShareCard";
-import { SettingsToggle } from "../components/SettingsToggle";
-import { SettingsModal } from "../components/SettingsModal";
+import ShareCard from "../components/ShareCard.svelte";
+import SettingsToggle from "../components/SettingsToggle.svelte";
+import SettingsModal from "../components/SettingsModal.svelte";
 import { ADHKAR_DATA } from "../data/adhkar";
-import { ChevronLeft, Sun, Moon } from "lucide-react";
+import { ChevronLeft, Sun, Moon } from "lucide-svelte";
 
 export function getStaticPaths() {
     const routes = [
@@ -66,7 +66,7 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
                     </span>
                 </div>
 
-                <SettingsToggle client:visible />
+                {/* <SettingsToggle client:visible /> */}
             </div>
         </div>
 
@@ -109,11 +109,11 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
                 <div class="flex flex-col gap-4 items-center">
                     {/* Share Section */}
                     {/* ShareCard needs client side interaction */}
-                    <ShareCard client:visible />
+                    {/* <ShareCard client:visible /> */}
                 </div>
             </div>
         </div>
     </div>
 
-    <SettingsModal client:idle />
+    {/* <SettingsModal client:idle /> */}
 </Layout>

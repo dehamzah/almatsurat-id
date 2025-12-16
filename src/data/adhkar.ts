@@ -1,4 +1,4 @@
-import { DhikrItem } from '../types';
+import type { DhikrItem } from '../types';
 
 export const ADHKAR_DATA: DhikrItem[] = [
   {
