@@ -1,11 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import DhikrCard from "../components/DhikrCard.astro";
+import Navbar from "../components/Navbar.astro";
 import ShareCard from "../components/ShareCard.svelte";
-import SettingsToggle from "../components/SettingsToggle.svelte";
+
 import SettingsModal from "../components/SettingsModal.svelte";
 import { ADHKAR_DATA } from "../data/adhkar";
-import { ChevronLeft, Sun, Moon } from "lucide-svelte";
+import { Sun, Moon } from "lucide-svelte";
 
 export function getStaticPaths() {
     const routes = [
@@ -39,37 +40,7 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
 
 <Layout title={pageTitle} description={pageDescription}>
     <div class="w-full pb-32 pt-24">
-        {/* Header - Fixed Position */}
-        <div
-            class="fixed top-0 left-0 right-0 z-40 bg-cream-50/95 dark:bg-stone-950/95 backdrop-blur-md border-b border-stone-200/50 dark:border-stone-800/50 transition-colors"
-        >
-            <div
-                class="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between"
-            >
-                <a
-                    href="/"
-                    aria-label="Go back"
-                    class="p-2 -ml-2 text-stone-600 dark:text-stone-300 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 rounded-full transition-colors flex items-center gap-2"
-                >
-                    <ChevronLeft size={20} />
-                </a>
-
-                <div class="flex flex-col items-center">
-                    <h2
-                        class="font-serif font-bold text-lg text-emerald-900 dark:text-emerald-100 leading-none transition-colors"
-                    >
-                        {mode === "pagi" ? "Dzikir Pagi" : "Dzikir Petang"}
-                    </h2>
-                    <span
-                        class="text-[10px] uppercase tracking-widest text-emerald-600/70 dark:text-emerald-400/70 mt-1 font-bold"
-                    >
-                        {size}
-                    </span>
-                </div>
-
-                <SettingsToggle client:visible />
-            </div>
-        </div>
+        <Navbar mode={mode} size={size} />
 
         {/* List Content Wrapper */}
         <div class="animate-slide-up">
