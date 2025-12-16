@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import {
         X,
         Monitor,
@@ -9,6 +9,7 @@
         Minus,
         Plus,
     } from "lucide-svelte";
+    import type { Theme } from "../types";
     import { fade, fly, scale } from "svelte/transition";
     import { quintOut } from "svelte/easing";
     import {
@@ -26,12 +27,12 @@
     // We need to parse strings for logic
 
     // Handlers
-    function handleSetTheme(t) {
+    function handleSetTheme(t: Theme) {
         theme.set(t);
         applyTheme(t);
     }
 
-    function handleSetFontSize(size) {
+    function handleSetFontSize(size: number) {
         const sizeStr = size.toString();
         arabicFontSizeAtom.set(sizeStr);
         applyFontSize(sizeStr);
@@ -57,7 +58,7 @@
     }
 
     // Helpers for checking state
-    function handleKeydown(e) {
+    function handleKeydown(e: KeyboardEvent) {
         if ($isSettingsOpen && e.key === "Escape") {
             onClose();
         }
@@ -66,6 +67,8 @@
     $: arabicFontSize = parseInt($arabicFontSizeAtom || "2", 10);
     $: isTransliterationOn = $showTransliterationAtom !== "false";
     $: isTranslationOn = $showTranslationAtom !== "false";
+
+    const themeOptions: Theme[] = ["auto", "light", "dark"];
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
@@ -119,7 +122,7 @@
                         role="radiogroup"
                         aria-label="Tampilan"
                     >
-                        {#each ["auto", "light", "dark"] as t}
+                        {#each themeOptions as t}
                             <button
                                 onclick={() => handleSetTheme(t)}
                                 role="radio"

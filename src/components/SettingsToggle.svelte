@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { Settings } from "lucide-svelte";
     import { isSettingsOpen } from "../store/settings";
 </script>
