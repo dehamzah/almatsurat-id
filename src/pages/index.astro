@@ -149,17 +149,20 @@ const description = "Daily Prophetic Remembrances - Dzikir Pagi dan Petang";
 </Layout>
 
 <script>
-	// Logic for Sughro/Kubro toggle
-	let currentSize = localStorage.getItem("settings:dhikrSize") || "sughro";
+	import type { DhikrSize } from "../types";
 
-	const updateLinks = (size) => {
+	// Logic for Sughro/Kubro toggle
+	let currentSize: DhikrSize =
+		(localStorage.getItem("settings:dhikrSize") as DhikrSize) || "sughro";
+
+	const updateLinks = (size: DhikrSize) => {
 		const linkPagi = document.getElementById("link-pagi");
 		const linkSore = document.getElementById("link-sore");
 		if (linkPagi) linkPagi.setAttribute("href", `/dzikir-pagi-${size}`);
 		if (linkSore) linkSore.setAttribute("href", `/dzikir-sore-${size}`);
 	};
 
-	const updateButtons = (size) => {
+	const updateButtons = (size: DhikrSize) => {
 		const btns = document.querySelectorAll(".size-btn");
 		btns.forEach((btn) => {
 			if (btn.getAttribute("data-size") === size) {
@@ -183,7 +186,9 @@ const description = "Daily Prophetic Remembrances - Dzikir Pagi dan Petang";
 	// Event Listeners
 	document.querySelectorAll(".size-btn").forEach((btn) => {
 		btn.addEventListener("click", (e) => {
-			const size = (e.target as HTMLElement).getAttribute("data-size");
+			const size = (e.target as HTMLElement).getAttribute(
+				"data-size",
+			) as DhikrSize;
 			if (size) {
 				currentSize = size;
 				localStorage.setItem("settings:dhikrSize", size);

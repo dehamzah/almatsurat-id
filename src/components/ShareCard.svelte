@@ -1,6 +1,8 @@
 <script lang="ts">
     import { Share2 } from "lucide-svelte";
 
+    let props = $props();
+
     let isCopied = $state(false);
 
     const handleShare = async () => {
@@ -33,6 +35,7 @@
 </script>
 
 <div
+    {...props}
     class="mt-8 p-6 bg-emerald-50/50 dark:bg-emerald-900/10 rounded-2xl max-w-sm w-full"
 >
     <p class="font-serif font-bold text-emerald-900 dark:text-emerald-100 mb-1">

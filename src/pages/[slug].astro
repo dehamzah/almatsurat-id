@@ -20,8 +20,12 @@ export function getStaticPaths() {
     }));
 }
 
+interface Props {
+    mode: "pagi" | "sore";
+    size: "sughro" | "kubro";
+}
+
 const { mode, size } = Astro.props;
-const { slug } = Astro.params;
 
 // Filter Data
 const timeTag = mode === "sore" ? "petang" : "pagi";
@@ -106,7 +110,7 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
                 <div class="flex flex-col gap-4 items-center">
                     {/* Share Section */}
                     {/* ShareCard needs client side interaction */}
-                    {/* <ShareCard client:visible /> */}
+                    <ShareCard client:visible />
                 </div>
             </div>
         </div>
