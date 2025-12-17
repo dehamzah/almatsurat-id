@@ -12,6 +12,7 @@ export interface DhikrSubItem {
 
 export interface DhikrItem {
   title: string;
+  hasPrefixBasmallah?: boolean;
   repeat: number;
   tags: DhikrItemTag[];
   children: DhikrSubItem[];

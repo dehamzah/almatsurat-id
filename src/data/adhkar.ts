@@ -1,5 +1,7 @@
 import type { DhikrItem } from '../types';
 
+export const BASMALLAH = "بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ";
+
 export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Ta'awudz",
@@ -65,6 +67,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Surat Al-Baqarah Ayat 1-5",
     repeat: 1,
+    hasPrefixBasmallah: true,
     tags: ["pagi", "petang", "sughro", "kubro"],
     children: [
       {
@@ -405,6 +408,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Surat Al-Zalzalah",
     repeat: 1,
+    hasPrefixBasmallah: true,
     tags: ["pagi", "petang", "kubro"],
     children: [
       {
@@ -459,6 +463,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Surat Al-Kafirun",
     repeat: 1,
+    hasPrefixBasmallah: true,
     tags: ["pagi", "petang", "kubro"],
     children: [
       {
@@ -498,6 +503,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Surat An-Nashr",
     repeat: 1,
+    hasPrefixBasmallah: true,
     tags: ["pagi", "petang", "kubro"],
     children: [
       {
@@ -525,6 +531,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Surat Al-Ikhlās",
     repeat: 3,
+    hasPrefixBasmallah: true,
     tags: ["pagi", "petang", "sughro", "kubro"],
     children: [
       {
@@ -552,6 +559,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Surat Al-Falaq",
     repeat: 3,
+    hasPrefixBasmallah: true,
     tags: ["pagi", "petang", "sughro", "kubro"],
     children: [
       {
@@ -586,6 +594,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
   {
     title: "Surat An-Nās",
     repeat: 3,
+    hasPrefixBasmallah: true,
     tags: ["pagi", "petang", "sughro", "kubro"],
     children: [
       {
