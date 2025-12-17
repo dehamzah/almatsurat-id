@@ -56,9 +56,9 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
                     );
 
                     // 3. Visibility
-                    const showTransliteration = localStorage.getItem(
-                        "settings:showTransliteration",
-                    );
+                    const showTransliteration =
+                        localStorage.getItem("settings:showTransliteration") ||
+                        "false";
                     if (showTransliteration === "false") {
                         document.documentElement.classList.add(
                             "hide-transliteration",

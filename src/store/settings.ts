@@ -6,7 +6,7 @@ export const isSettingsOpen = atom(false);
 
 export const theme = persistentAtom<Theme>('settings:theme', 'auto');
 export const arabicFontSize = persistentAtom<string>('settings:arabicFontSize', '2');
-export const showTransliteration = persistentAtom<string>('settings:showTransliteration', 'true');
+export const showTransliteration = persistentAtom<string>('settings:showTransliteration', 'false');
 export const showTranslation = persistentAtom<string>('settings:showTranslation', 'true');
 
 export function applyTheme(t: Theme) {
