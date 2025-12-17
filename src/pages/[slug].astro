@@ -7,6 +7,7 @@ import ShareCard from "../components/ShareCard.svelte";
 import SettingsModal from "../components/SettingsModal.svelte";
 import { ADHKAR_DATA } from "../data/adhkar";
 import { Sun, Moon } from "lucide-svelte";
+import Container from "../components/Container.astro";
 
 export function getStaticPaths() {
     const routes = [
@@ -39,53 +40,55 @@ const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-    <div class="w-full pb-32 pt-24">
-        <Navbar mode={mode} size={size} />
+    <Container>
+        <div class="w-full pb-32 pt-24">
+            <Navbar mode={mode} size={size} />
 
-        {/* List Content Wrapper */}
-        <div class="animate-slide-up">
-            <div class="px-4">
-                {
-                    filteredDhikr.map((dhikr, index) => (
-                        <DhikrCard data={dhikr} index={index + 1} />
-                    ))
-                }
-            </div>
-
-            {/* Completion Footer */}
-            <div class="mt-16 text-center px-4 mb-20">
-                <div
-                    class="inline-block p-4 mb-4 transition-colors text-emerald-800 dark:text-emerald-300 opacity-50"
-                >
-                    <div class="w-8 h-8 flex items-center justify-center">
-                        {
-                            mode === "pagi" ? (
-                                <Sun size={24} strokeWidth={1} />
-                            ) : (
-                                <Moon size={24} strokeWidth={1} />
-                            )
-                        }
-                    </div>
+            {/* List Content Wrapper */}
+            <div class="animate-slide-up">
+                <div class="px-4">
+                    {
+                        filteredDhikr.map((dhikr, index) => (
+                            <DhikrCard data={dhikr} index={index + 1} />
+                        ))
+                    }
                 </div>
-                <h3
-                    class="font-serif font-bold text-xl text-emerald-900 dark:text-emerald-100 mb-2 transition-colors"
-                >
-                    Selesai
-                </h3>
-                <p
-                    class="text-stone-500 dark:text-stone-400 text-sm mb-8 transition-colors italic"
-                >
-                    Semoga Allah menerima amalanmu.
-                </p>
 
-                <div class="flex flex-col gap-4 items-center">
-                    {/* Share Section */}
-                    {/* ShareCard needs client side interaction */}
-                    <ShareCard client:visible />
+                {/* Completion Footer */}
+                <div class="mt-16 text-center px-4 mb-20">
+                    <div
+                        class="inline-block p-4 mb-4 transition-colors text-emerald-800 dark:text-emerald-300 opacity-50"
+                    >
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            {
+                                mode === "pagi" ? (
+                                    <Sun size={24} strokeWidth={1} />
+                                ) : (
+                                    <Moon size={24} strokeWidth={1} />
+                                )
+                            }
+                        </div>
+                    </div>
+                    <h3
+                        class="font-serif font-bold text-xl text-emerald-900 dark:text-emerald-100 mb-2 transition-colors"
+                    >
+                        Selesai
+                    </h3>
+                    <p
+                        class="text-stone-500 dark:text-stone-400 text-sm mb-8 transition-colors italic"
+                    >
+                        Semoga Allah menerima amalanmu.
+                    </p>
+
+                    <div class="flex flex-col gap-4 items-center">
+                        {/* Share Section */}
+                        {/* ShareCard needs client side interaction */}
+                        <ShareCard client:visible />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </Container>
 
     <SettingsModal client:idle />
 </Layout>
