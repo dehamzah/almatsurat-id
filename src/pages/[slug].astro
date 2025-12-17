@@ -30,9 +30,8 @@ interface Props {
 const { mode, size } = Astro.props;
 
 // Filter Data
-const timeTag = mode === "petang" ? "petang" : "pagi";
 const filteredDhikr = ADHKAR_DATA.filter((d) => {
-    return d.tags.includes(timeTag) && d.tags.includes(size);
+    return d.tags.includes(mode) && d.tags.includes(size);
 });
 
 const pageTitle = `Dzikir ${mode} ${size} | Al Ma'tsurat`;
