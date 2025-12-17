@@ -8,8 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "audit": "bun run build && start-server-and-test preview http://localhost:4321 'lighthouse http://localhost:4321 --view --no-enable-error-reporting'",
-    "svelte-check": "svelte-check",
-    "astro-check": "astro check",
+    "check": "bun run astro check && bun run svelte-check",
     "test": "vitest"
   },
   "dependencies": {
