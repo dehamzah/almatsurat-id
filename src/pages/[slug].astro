@@ -8,6 +8,7 @@ import SettingsModal from "../components/SettingsModal.svelte";
 import { ADHKAR_DATA } from "../data/adhkar";
 import { Sun, Moon } from "lucide-svelte";
 import Container from "../components/Container.astro";
+import { toCapitalized } from "../utils/string";
 
 export function getStaticPaths() {
     const routes = [
@@ -34,8 +35,11 @@ const filteredDhikr = ADHKAR_DATA.filter((d) => {
     return d.tags.includes(mode) && d.tags.includes(size);
 });
 
-const pageTitle = `Dzikir ${mode} ${size} | Al Ma'tsurat`;
-const pageDescription = `Bacaan lengkap Al-Ma'tsurat ${mode} ${size}. Kumpulan dzikir dan doa harian yang disusun oleh Hasan Al-Banna, lengkap dengan audio.`;
+const modeCapitalized = toCapitalized(mode);
+const sizeCapitalized = toCapitalized(size);
+
+const pageTitle = `Dzikir ${modeCapitalized} ${sizeCapitalized} | Al-Ma'tsurat`;
+const pageDescription = `Bacaan lengkap Al-Ma'tsurat ${modeCapitalized} ${sizeCapitalized}. Kumpulan dzikir dan doa harian yang disusun oleh Hasan Al-Banna, lengkap dengan audio.`;
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
