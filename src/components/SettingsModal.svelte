@@ -9,6 +9,7 @@
         Minus,
         Plus,
     } from "lucide-svelte";
+    import { version } from "../../package.json";
     import type { Theme } from "../types";
     import { fade, fly, scale } from "svelte/transition";
     import { quintOut } from "svelte/easing";
@@ -278,7 +279,9 @@
                 <div
                     class="pt-4 border-t border-stone-100 dark:border-stone-800 text-center"
                 >
-                    <p class="text-xs text-stone-400">Al Ma'tsurat v1.5.0</p>
+                    <p class="text-xs text-stone-400">
+                        Al Ma'tsurat v{version}
+                    </p>
                 </div>
             </div>
         </div>
