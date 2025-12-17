@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "lighthouse": "^13.0.1",
+    "rollup-plugin-visualizer": "^6.0.5",
     "start-server-and-test": "^2.1.3"
   }
 }
