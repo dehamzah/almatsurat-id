@@ -2,12 +2,19 @@ import { persistentAtom } from '@nanostores/persistent';
 import { atom } from 'nanostores';
 import type { Theme } from '../types';
 
+export const DEFAULT_SETTINGS = {
+    theme: 'auto' as Theme,
+    arabicFontSize: '2',
+    showTransliteration: 'false',
+    showTranslation: 'true'
+};
+
 export const isSettingsOpen = atom(false);
 
-export const theme = persistentAtom<Theme>('settings:theme', 'auto');
-export const arabicFontSize = persistentAtom<string>('settings:arabicFontSize', '2');
-export const showTransliteration = persistentAtom<string>('settings:showTransliteration', 'false');
-export const showTranslation = persistentAtom<string>('settings:showTranslation', 'true');
+export const theme = persistentAtom<Theme>('settings:theme', DEFAULT_SETTINGS.theme);
+export const arabicFontSize = persistentAtom<string>('settings:arabicFontSize', DEFAULT_SETTINGS.arabicFontSize);
+export const showTransliteration = persistentAtom<string>('settings:showTransliteration', DEFAULT_SETTINGS.showTransliteration);
+export const showTranslation = persistentAtom<string>('settings:showTranslation', DEFAULT_SETTINGS.showTranslation);
 
 export function applyTheme(t: Theme) {
     if (typeof document === 'undefined') return;

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { DEFAULT_SETTINGS } from "../store/settings";
 
 interface Props {
     title: string;
@@ -20,11 +21,13 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
         <title>{title}</title>
 
         {/* Blocking script to avoid FOUC */}
-        <script is:inline>
+        <script is:inline define:vars={{ DEFAULT_SETTINGS }}>
             (function () {
                 try {
                     // 1. Theme
-                    const theme = localStorage.getItem("settings:theme");
+                    const theme =
+                        localStorage.getItem("settings:theme") ||
+                        DEFAULT_SETTINGS.theme;
                     if (
                         theme === "dark" ||
                         (!theme &&
@@ -41,7 +44,8 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
 
                     // 2. Font Size
                     const fontSize =
-                        localStorage.getItem("settings:arabicFontSize") || "2";
+                        localStorage.getItem("settings:arabicFontSize") ||
+                        DEFAULT_SETTINGS.arabicFontSize;
                     const sizes = {
                         "1": "1.5rem",
                         "2": "1.875rem",
@@ -58,16 +62,16 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
                     // 3. Visibility
                     const showTransliteration =
                         localStorage.getItem("settings:showTransliteration") ||
-                        "false";
+                        DEFAULT_SETTINGS.showTransliteration;
                     if (showTransliteration === "false") {
                         document.documentElement.classList.add(
                             "hide-transliteration",
                         );
                     }
 
-                    const showTranslation = localStorage.getItem(
-                        "settings:showTranslation",
-                    );
+                    const showTranslation =
+                        localStorage.getItem("settings:showTranslation") ||
+                        DEFAULT_SETTINGS.showTranslation;
                     if (showTranslation === "false") {
                         document.documentElement.classList.add(
                             "hide-translation",
