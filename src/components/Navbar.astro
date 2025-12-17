@@ -1,6 +1,7 @@
 ---
 import { ChevronLeft } from "lucide-svelte";
 import SettingsToggle from "./SettingsToggle.svelte";
+import AudioPlayer from "./AudioPlayer.svelte";
 import { toCapitalized } from "../utils/string";
 
 interface Props {
@@ -39,6 +40,9 @@ const sizeCapitalized = toCapitalized(size);
             </h1>
         </div>
 
-        <SettingsToggle client:visible />
+        <div class="flex items-center gap-1">
+            <AudioPlayer client:visible mode={mode} size={size} />
+            <SettingsToggle client:visible />
+        </div>
     </div>
 </div>
