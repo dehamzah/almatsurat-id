@@ -95,7 +95,7 @@
             transition:fly={{ y: 200, duration: 300, easing: quintOut }}
         >
             <div
-                class="p-4 border-b border-stone-100 dark:border-stone-800 flex justify-between items-center sticky top-0 bg-white dark:bg-stone-900 z-10"
+                class="px-6 py-4 border-b border-stone-100 dark:border-stone-800 flex justify-between items-center sticky top-0 bg-white dark:bg-stone-900 z-10"
             >
                 <h3
                     class="font-bold text-lg text-stone-800 dark:text-stone-100"
@@ -105,7 +105,7 @@
                 <button
                     onclick={onClose}
                     aria-label="Close settings"
-                    class="p-1 text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full transition-colors"
+                    class="p-1 -mr-1 text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full transition-colors cursor-pointer"
                 >
                     <X size={20} />
                 </button>
@@ -127,7 +127,7 @@
                                 onclick={() => handleSetTheme(t)}
                                 role="radio"
                                 aria-checked={$theme === t}
-                                class="flex-1 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all {$theme ===
+                                class="cursor-pointer flex-1 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all {$theme ===
                                 t
                                     ? 'bg-white dark:bg-stone-700 text-emerald-900 dark:text-emerald-100 shadow-sm'
                                     : 'text-stone-500 dark:text-stone-400 hover:text-emerald-800 dark:hover:text-emerald-200'}"
@@ -164,7 +164,7 @@
                             onclick={handleToggleTransliteration}
                             role="switch"
                             aria-checked={isTransliterationOn}
-                            class="w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
+                            class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
                         >
                             <div class="flex items-center gap-3">
                                 <Type size={18} class="text-stone-400" />
@@ -190,7 +190,7 @@
                             onclick={handleToggleTranslation}
                             role="switch"
                             aria-checked={isTranslationOn}
-                            class="w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
+                            class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
                         >
                             <div class="flex items-center gap-3">
                                 <Languages size={18} class="text-stone-400" />
@@ -230,7 +230,7 @@
                                 )}
                             disabled={arabicFontSize <= 1}
                             aria-label="Decrease font size"
-                            class="w-12 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-stone-700 shadow-sm border border-stone-100 dark:border-stone-600 text-stone-600 dark:text-stone-300 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            class="cursor-pointer w-12 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-stone-700 shadow-sm border border-stone-100 dark:border-stone-600 text-stone-600 dark:text-stone-300 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Minus size={18} />
                         </button>
@@ -259,7 +259,7 @@
                                 )}
                             disabled={arabicFontSize >= 5}
                             aria-label="Increase font size"
-                            class="w-12 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-stone-700 shadow-sm border border-stone-100 dark:border-stone-600 text-stone-600 dark:text-stone-300 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            class="cursor-pointer w-12 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-stone-700 shadow-sm border border-stone-100 dark:border-stone-600 text-stone-600 dark:text-stone-300 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Plus size={18} />
                         </button>
