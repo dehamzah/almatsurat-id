@@ -93,8 +93,8 @@ const description = "Daily Prophetic Remembrances - Dzikir Pagi dan Petang";
 
 				{/* Evening Button */}
 				<a
-					href="/dzikir-sore-sughro"
-					id="link-sore"
+					href="/dzikir-petang-sughro"
+					id="link-petang"
 					class="group relative flex flex-col items-center justify-center p-6 md:p-10 border border-stone-200 dark:border-stone-800 hover:border-emerald-400 dark:hover:border-emerald-600 rounded-xl transition-all duration-300 bg-white/50 dark:bg-stone-900/50 hover:bg-white dark:hover:bg-stone-900 hover:shadow-lg hover:shadow-emerald-100 dark:hover:shadow-emerald-900/10 text-center overflow-hidden"
 					data-astro-prefetch
 				>
@@ -162,9 +162,10 @@ const description = "Daily Prophetic Remembrances - Dzikir Pagi dan Petang";
 
 	const updateLinks = (size: DhikrSize) => {
 		const linkPagi = document.getElementById("link-pagi");
-		const linkSore = document.getElementById("link-sore");
+		const linkPetang = document.getElementById("link-petang");
 		if (linkPagi) linkPagi.setAttribute("href", `/dzikir-pagi-${size}`);
-		if (linkSore) linkSore.setAttribute("href", `/dzikir-sore-${size}`);
+		if (linkPetang)
+			linkPetang.setAttribute("href", `/dzikir-petang-${size}`);
 	};
 
 	const updateButtons = (size: DhikrSize) => {

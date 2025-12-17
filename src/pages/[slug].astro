@@ -13,8 +13,8 @@ export function getStaticPaths() {
     const routes = [
         { slug: "dzikir-pagi-sughro", mode: "pagi", size: "sughro" },
         { slug: "dzikir-pagi-kubro", mode: "pagi", size: "kubro" },
-        { slug: "dzikir-sore-sughro", mode: "sore", size: "sughro" },
-        { slug: "dzikir-sore-kubro", mode: "sore", size: "kubro" },
+        { slug: "dzikir-petang-sughro", mode: "petang", size: "sughro" },
+        { slug: "dzikir-petang-kubro", mode: "petang", size: "kubro" },
     ];
     return routes.map((route) => ({
         params: { slug: route.slug },
@@ -23,20 +23,20 @@ export function getStaticPaths() {
 }
 
 interface Props {
-    mode: "pagi" | "sore";
+    mode: "pagi" | "petang";
     size: "sughro" | "kubro";
 }
 
 const { mode, size } = Astro.props;
 
 // Filter Data
-const timeTag = mode === "sore" ? "petang" : "pagi";
+const timeTag = mode === "petang" ? "petang" : "pagi";
 const filteredDhikr = ADHKAR_DATA.filter((d) => {
     return d.tags.includes(timeTag) && d.tags.includes(size);
 });
 
-const pageTitle = `${mode === "pagi" ? "Dzikir Pagi" : "Dzikir Petang"} (${size}) | Al Ma'tsurat`;
-const pageDescription = `Read the ${mode} dhikr (${size}) - Dzikir Harian Muslim`;
+const pageTitle = `Dzikir ${mode} ${size} | Al Ma'tsurat`;
+const pageDescription = `Bacaan lengkap Al-Ma'tsurat ${mode} ${size}. Kumpulan dzikir dan doa harian yang disusun oleh Hasan Al-Banna, lengkap dengan audio.`;
 ---
 
 <Layout title={pageTitle} description={pageDescription}>

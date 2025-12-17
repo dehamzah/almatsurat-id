@@ -1,5 +1,5 @@
 export type DhikrSize = 'sughro' | 'kubro';
-export type TimeMode = 'pagi' | 'sore';
+export type TimeMode = 'pagi' | 'petang';
 export type Theme = 'auto' | 'light' | 'dark';
 
 export type DhikrItemTag = "pagi" | "petang" | "sughro" | "kubro";
