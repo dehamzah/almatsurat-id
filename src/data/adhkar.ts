@@ -226,6 +226,29 @@ export const ADHKAR_DATA: DhikrItem[] = [
     ],
   },
   {
+    title: "Surat Al-Isra' Ayat 110-111",
+    repeat: 1,
+    tags: ["pagi", "petang", "kubro"],
+    children: [
+      {
+        arabic:
+          "قُلِ ادْعُوا اللّٰهَ اَوِ ادْعُوا الرَّحْمٰنَۗ اَيًّا مَّا تَدْعُوْا فَلَهُ الْاَسْمَاۤءُ الْحُسْنٰىۚ وَلَا تَجْهَرْ بِصَلَاتِكَ وَلَا تُخَافِتْ بِهَا وَابْتَغِ بَيْنَ ذٰلِكَ سَبِيْلً ١١٠",
+        transliteration:
+          "Qulid‘ullāha awid‘ur-raḥmān(a), ayyam mā tad‘ū fa lahul-asmā'ul-ḥusnā, wa lā tajhar biṣalātika wa lā tukhāfit bihā wabtagi baina żālika sabīlā(n).",
+        translation:
+          'Katakanlah (Nabi Muhammad), “Serulah ‘Allah’ atau serulah ‘Ar-Raḥmān’! Nama mana saja yang kamu seru, (maka itu baik) karena Dia mempunyai nama-nama yang terbaik (Asmaulhusna). Janganlah engkau mengeraskan (bacaan) salatmu dan janganlah (pula) merendahkannya. Usahakan jalan (tengah) di antara (kedua)-nya!”.',
+      },
+      {
+        arabic:
+          "وَقُلِ الْحَمْدُ لِلّٰهِ الَّذِيْ لَمْ يَتَّخِذْ وَلَدًا وَّلَمْ يَكُنْ لَّهٗ شَرِيْكٌ فِى الْمُلْكِ وَلَمْ يَكُنْ لَّهٗ وَلِيٌّ مِّنَ الذُّلِّ وَكَبِّرْهُ تَكْبِيْرًا ١١١ ࣖ",
+        transliteration:
+          "Wa qulil-ḥamdu lillāhil-lażī lam yattakhiż waladaw wa lam yakul lahū syarīkun fil-mulki wa lam yakul lahū waliyyum minaż-żulli wa kabbirhu takbīrā(n).",
+        translation:
+          'Katakanlah, “Segala puji bagi Allah yang tidak mengangkat seorang anak, tidak mempunyai sekutu dalam kerajaan-Nya, dan tidak memerlukan penolong dari kehinaan! Agungkanlah Dia setinggi-tingginya!”.',
+      },
+    ],
+  },
+  {
     title: "Surat Al-Mu'minun Ayat 115-118",
     repeat: 1,
     tags: ["pagi", "petang", "kubro"],
