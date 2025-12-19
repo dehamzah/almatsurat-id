@@ -11,6 +11,8 @@ import Container from "../components/Container.astro";
 const title = "Al-Ma'tsurat Dzikir Pagi dan Petang";
 const description =
 	"Al-Ma'tsurat Sughro dan Kubro, kumpulan dzikir dan doa harian yang disusun oleh Hasan Al-Banna. Bacaan dzikir pagi dan petang, lengkap dengan audio.";
+
+import { version } from "../../package.json";
 ---
 
 <Layout title={title} description={description}>
@@ -146,6 +148,11 @@ const description =
 					class="font-serif text-sm md:text-base text-emerald-900/80 dark:text-emerald-200 italic"
 				>
 					Imam Hasan Al-Banna
+				</p>
+				<p
+					class="text-[10px] text-stone-400 dark:text-stone-500 font-sans mt-4 opacity-120"
+				>
+					v{version}
 				</p>
 			</div>
 		</div>
