@@ -18,10 +18,20 @@ export const showTranslation = persistentAtom<string>('settings:showTranslation'
 
 export function applyTheme(t: Theme) {
     if (typeof document === 'undefined') return;
-    if (t === 'dark' || (t === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    
+    const colors = {
+        light: "#FDFBF7",
+        dark: "#0c0a09",
+    };
+
+    const isDark = t === 'dark' || (t === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    if (isDark) {
         document.documentElement.classList.add('dark');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', colors.dark);
     } else {
         document.documentElement.classList.remove('dark');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', colors.light);
     }
 }
 

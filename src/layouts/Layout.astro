@@ -29,16 +29,7 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
             sizes="180x180"
             href="/apple-touch-icon.png"
         />
-        <meta
-            name="theme-color"
-            content="#FDFBF7"
-            media="(prefers-color-scheme: light)"
-        />
-        <meta
-            name="theme-color"
-            content="#0c0a09"
-            media="(prefers-color-scheme: dark)"
-        />
+        <meta name="theme-color" content="#FDFBF7" />
         <meta name="apple-mobile-web-app-title" content="Al Ma'tsurat" />
         <link rel="manifest" href="/site.webmanifest" />
 
@@ -55,18 +46,30 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
                     const theme =
                         localStorage.getItem("settings:theme") ||
                         DEFAULT_SETTINGS.theme;
-                    if (
+
+                    const colors = {
+                        light: "#FDFBF7",
+                        dark: "#0c0a09",
+                    };
+                    const isDark =
                         theme === "dark" ||
                         (!theme &&
                             window.matchMedia("(prefers-color-scheme: dark)")
                                 .matches) ||
                         (theme === "auto" &&
                             window.matchMedia("(prefers-color-scheme: dark)")
-                                .matches)
-                    ) {
+                                .matches);
+
+                    if (isDark) {
                         document.documentElement.classList.add("dark");
+                        document
+                            .querySelector('meta[name="theme-color"]')
+                            .setAttribute("content", colors.dark);
                     } else {
                         document.documentElement.classList.remove("dark");
+                        document
+                            .querySelector('meta[name="theme-color"]')
+                            .setAttribute("content", colors.light);
                     }
 
                     // 2. Font Size
