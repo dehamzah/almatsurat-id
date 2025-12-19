@@ -286,7 +286,7 @@
                         Tentang Aplikasi
                     </a>
                     <p class="text-xs text-stone-400">
-                        Al Ma'tsurat v{version}
+                        v{version}
                     </p>
                 </div>
             </div>
