@@ -15,5 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "display": "standalone"
+  "display": "standalone",
+  "start_url": "/",
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json"
 }
