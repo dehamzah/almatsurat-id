@@ -1,0 +1,162 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
+import { ChevronLeft, Github } from "lucide-svelte";
+import { version } from "../../package.json";
+
+const title = "Tentang Aplikasi";
+const description = "Tentang Aplikasi Al-Matsurat";
+---
+
+<Layout title={title} description={description}>
+    <Container>
+        <div class="px-4 py-6 md:py-10 min-h-screen">
+            <div
+                class="fixed top-0 left-0 right-0 z-40 bg-cream-50/95 dark:bg-stone-950/95 backdrop-blur-md border-b border-stone-200/50 dark:border-stone-800/50 transition-colors"
+            >
+                <div
+                    class="max-w-2xl mx-auto px-2 py-4 flex items-center justify-between"
+                >
+                    <a
+                        href="/"
+                        aria-label="Kembali"
+                        class="p-2 text-stone-600 dark:text-stone-300 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 rounded-full transition-colors flex items-center gap-2"
+                    >
+                        <ChevronLeft size={20} />
+                    </a>
+
+                    <div class="flex flex-col items-center mr-9">
+                        <h1
+                            class="font-serif font-bold text-lg text-emerald-900 dark:text-emerald-100 leading-none transition-colors"
+                        >
+                            Tentang Aplikasi
+                        </h1>
+                    </div>
+
+                    <div class="w-9"></div>
+                    <!-- Spacer to balance the back button -->
+                </div>
+            </div>
+
+            <div class="px-4 py-6 md:py-10 min-h-screen pt-24">
+                {/* Content */}
+                <div class="prose dark:prose-invert prose-stone max-w-none">
+                    <div class="mb-8">
+                        <h2
+                            class="text-xl font-serif font-bold text-emerald-900 dark:text-emerald-100 mb-4"
+                        >
+                            Al-Ma'tsurat
+                        </h2>
+                        <p
+                            class="text-stone-600 dark:text-stone-300 leading-relaxed"
+                        >
+                            Aplikasi ini berisi kumpulan dzikir pagi dan petang
+                            (Al-Ma'tsurat) yang disusun oleh Imam Hasan
+                            Al-Banna. Dzikir-dzikir ini bersumber dari Al-Qur'an
+                            dan As-Sunnah yang diajarkan oleh Rasulullah SAW.
+                        </p>
+                    </div>
+
+                    <div class="mb-8">
+                        <h2
+                            class="text-xl font-serif font-bold text-emerald-900 dark:text-emerald-100 mb-4"
+                        >
+                            Fitur Utama
+                        </h2>
+                        <ul
+                            class="list-disc pl-5 space-y-2 text-stone-600 dark:text-stone-300"
+                        >
+                            <li>Dzikir Pagi dan Petang (Sughro & Kubro)</li>
+                            <li>Mode Gelap (Dark Mode)</li>
+                            <li>Audio Player</li>
+                            <li>Transliterasi dan Terjemahan</li>
+                            <li>Pengaturan Ukuran Teks Arab</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-8">
+                        <h2
+                            class="text-xl font-serif font-bold text-emerald-900 dark:text-emerald-100 mb-4"
+                        >
+                            Referensi
+                        </h2>
+                        <p
+                            class="text-stone-600 dark:text-stone-300 leading-relaxed mb-4"
+                        >
+                            Teks Arab, transliterasi, dan terjemahan dalam
+                            aplikasi ini merujuk pada:
+                        </p>
+                        <ul
+                            class="list-disc pl-5 space-y-2 text-stone-600 dark:text-stone-300"
+                        >
+                            <li>
+                                Wazhifah Al-Kubra & As-Sughra (Imam Hasan
+                                Al-Banna)
+                            </li>
+                            <li>
+                                Audio oleh <a
+                                    href="https://soundcloud.com/ahmad-sahal-hasan/al-matsurat-wazhifah-kubra-pagi-ahmad-sahal-hasan-lc"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-emerald-600 dark:text-emerald-400 hover:underline"
+                                    >Ahmad Sahal Hasan, Lc</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-8">
+                        <h2
+                            class="text-xl font-serif font-bold text-emerald-900 dark:text-emerald-100 mb-4"
+                        >
+                            Open Source
+                        </h2>
+                        <p
+                            class="text-stone-600 dark:text-stone-300 leading-relaxed mb-4"
+                        >
+                            Aplikasi ini dibangun menggunakan teknologi web
+                            modern dan bersifat <em>open source</em>. Anda dapat
+                            berkontribusi atau melihat kode sumbernya di <a
+                                href="https://github.com/dehamzah/almatsurat-astro"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-emerald-600 dark:text-emerald-400"
+                                >GitHub</a
+                            >.
+                        </p>
+                    </div>
+
+                    <div
+                        class="pt-8 border-t border-stone-200 dark:border-stone-800 flex flex-col items-center justify-center text-center space-y-4"
+                    >
+                        <div class="flex flex-col items-center">
+                            <span class="text-stone-500 font-medium"
+                                >Versi Aplikasi</span
+                            >
+                            <span
+                                class="text-emerald-600 dark:text-emerald-400 font-bold"
+                                >v{version}</span
+                            >
+                        </div>
+
+                        <a
+                            href="https://github.com/dehamzah/almatsurat-astro"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-4 py-2 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-lg text-stone-600 dark:text-stone-300 transition-colors text-sm font-medium"
+                        >
+                            <Github size={18} />
+                            GitHub Repository
+                        </a>
+                    </div>
+                </div>
+
+                <footer
+                    class="mt-16 text-center text-sm text-stone-400 dark:text-stone-500"
+                >
+                    <p>&copy; {new Date().getFullYear()} Al-Matsurat.</p>
+                </footer>
+            </div>
+        </div>
+    </Container>
+</Layout>

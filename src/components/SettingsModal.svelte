@@ -277,8 +277,14 @@
 
                 <!-- Info -->
                 <div
-                    class="pt-4 border-t border-stone-100 dark:border-stone-800 text-center"
+                    class="pt-4 border-t border-stone-100 dark:border-stone-800 text-center flex flex-col items-center gap-2"
                 >
+                    <a
+                        href="/about"
+                        class="text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+                    >
+                        Tentang Aplikasi
+                    </a>
                     <p class="text-xs text-stone-400">
                         Al Ma'tsurat v{version}
                     </p>
