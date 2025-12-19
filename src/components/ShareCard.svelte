@@ -8,8 +8,7 @@
     const handleShare = async () => {
         const shareData = {
             title: "Al Ma'tsurat",
-            text: "Daily Prophetic Remembrances - Dzikir Harian Nabi",
-            url: window.location.href,
+            url: window.location.origin,
         };
 
         try {
@@ -21,7 +20,7 @@
                 await navigator.share(shareData);
             } else {
                 // Fallback: Copy to clipboard
-                await navigator.clipboard.writeText(window.location.href);
+                await navigator.clipboard.writeText(window.location.origin);
                 isCopied = true;
                 setTimeout(() => (isCopied = false), 2000);
             }
