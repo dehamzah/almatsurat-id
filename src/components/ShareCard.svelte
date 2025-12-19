@@ -38,10 +38,10 @@
     {...props}
     class="mt-8 p-6 bg-emerald-50/50 dark:bg-emerald-900/10 rounded-2xl max-w-sm w-full"
 >
-    <p class="font-serif font-bold text-emerald-900 dark:text-emerald-500 mb-1">
-        Merasa aplikasi ini bermanfaat?
+    <p class="font-serif font-bold text-emerald-900 dark:text-emerald-200 mb-1">
+        Merasa Aplikasi Ini Bermanfaat?
     </p>
-    <p class="text-xs text-stone-500 dark:text-stone-400 mb-4">
+    <p class="text-xs text-stone-500 dark:text-stone-300 mb-4">
         Bagikan kepada teman dan keluarga. <br />Semoga setiap bacaan mereka
         menjadi pahala jariyah melalui ajakanmu.
     </p>
