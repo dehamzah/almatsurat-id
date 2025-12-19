@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import DhikrCard from "../components/DhikrCard.astro";
 import Navbar from "../components/Navbar.astro";
 import ShareCard from "../components/ShareCard.svelte";
+import FeedbackCard from "../components/FeedbackCard.astro";
 
 import SettingsModal from "../components/SettingsModal.svelte";
 import { ADHKAR_DATA } from "../data/adhkar";
@@ -84,9 +85,8 @@ const pageDescription = `Bacaan lengkap Al-Ma'tsurat ${modeCapitalized} ${sizeCa
                     </p>
 
                     <div class="flex flex-col gap-4 items-center">
-                        {/* Share Section */}
-                        {/* ShareCard needs client side interaction */}
                         <ShareCard client:visible />
+                        <FeedbackCard />
                     </div>
                 </div>
             </div>
