@@ -42,7 +42,7 @@ const description =
 			<div class="flex gap-8 md:gap-10 mb-8 md:mb-12" id="size-toggles">
 				<button
 					data-size="sughro"
-					class="cursor-pointer size-btn pb-1 text-base md:text-lg font-serif transition-all duration-300 border-b-2 font-medium text-emerald-900 dark:text-emerald-100 border-emerald-900 dark:border-emerald-100"
+					class="cursor-pointer size-btn pb-1 text-base md:text-lg font-serif transition-all duration-300 border-b-2 font-medium text-emerald-900 dark:text-emerald-500 border-emerald-900 dark:border-emerald-500"
 				>
 					Sughro
 				</button>
@@ -175,7 +175,7 @@ const description =
 			if (btn.getAttribute("data-size") === size) {
 				// Active styles
 				btn.className =
-					"size-btn pb-1 text-base md:text-lg font-serif transition-all duration-300 border-b-2 font-medium text-emerald-900 dark:text-emerald-100 border-emerald-900 dark:border-emerald-100";
+					"size-btn pb-1 text-base md:text-lg font-serif transition-all duration-300 border-b-2 font-medium text-emerald-900 dark:text-emerald-500 border-emerald-900 dark:border-emerald-500";
 				btn.setAttribute("aria-pressed", "true");
 			} else {
 				// Inactive styles
