@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { DEFAULT_SETTINGS } from "../store/settings";
 import { pwaInfo } from "virtual:pwa-info";
+import PwaToast from "../components/PwaToast.svelte";
 
 interface Props {
     title: string;
@@ -40,7 +41,7 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
         <title>{title}</title>
 
         {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-        <script src="/src/pwa.ts"></script>
+        <PwaToast client:load />
 
         {/* Blocking script to avoid FOUC */}
         <script is:inline define:vars={{ DEFAULT_SETTINGS }}>
