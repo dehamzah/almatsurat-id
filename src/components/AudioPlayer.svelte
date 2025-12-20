@@ -18,7 +18,8 @@
     let currentSrc = $state("");
     let showErrorToast = $state(false);
 
-    const BASE_PATH_AUDIO = "/audio";
+    const BASE_PATH_AUDIO =
+        "https://github.com/dehamzah/almatsurat-audio/raw/refs/heads/main/aac";
     const audioMap: Record<string, string> = {
         "pagi-sughro": BASE_PATH_AUDIO + "/al_matsurat_pagi_sughro.m4a",
         "pagi-kubro": BASE_PATH_AUDIO + "/al_matsurat_pagi_kubro.m4a",
