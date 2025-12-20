@@ -14,10 +14,10 @@
 
     const BASE_PATH_AUDIO = "/audio";
     const audioMap: Record<string, string> = {
-        "pagi-sughro": BASE_PATH_AUDIO + "/al_matsurat_pagi_sughro.mp3",
-        "pagi-kubro": BASE_PATH_AUDIO + "/al_matsurat_pagi_kubro.mp3",
-        "petang-sughro": BASE_PATH_AUDIO + "/al_matsurat_petang_sughro.mp3",
-        "petang-kubro": BASE_PATH_AUDIO + "/al_matsurat_petang_kubro.mp3",
+        "pagi-sughro": BASE_PATH_AUDIO + "/al_matsurat_pagi_sughro.m4a",
+        "pagi-kubro": BASE_PATH_AUDIO + "/al_matsurat_pagi_kubro.m4a",
+        "petang-sughro": BASE_PATH_AUDIO + "/al_matsurat_petang_sughro.m4a",
+        "petang-kubro": BASE_PATH_AUDIO + "/al_matsurat_petang_kubro.m4a",
     };
 
     $: remoteSrc = audioMap[`${mode}-${size}`];
