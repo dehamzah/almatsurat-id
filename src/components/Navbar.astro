@@ -41,8 +41,8 @@ const sizeCapitalized = toCapitalized(size);
         </div>
 
         <div class="flex items-center gap-1">
-            <AudioPlayer client:visible mode={mode} size={size} />
-            <SettingsToggle client:visible />
+            <AudioPlayer client:idle mode={mode} size={size} />
+            <SettingsToggle client:idle />
         </div>
     </div>
 </header>
