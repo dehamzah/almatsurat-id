@@ -20,14 +20,14 @@ import { version } from "../../package.json";
 	<IslamicArtBackground />
 
 	<Container>
-		<div class="flex flex-col items-center">
+		<main class="flex flex-col items-center">
 			{/* Header with Settings */}
 			<nav class="absolute top-0 right-0 p-4 z-20">
 				<SettingsToggle client:load />
 			</nav>
 
 			{/* Minimal Header */}
-			<div class="mb-16 text-center mt-32">
+			<header class="mb-16 text-center mt-32">
 				<h1
 					class="font-serif font-bold text-4xl md:text-5xl text-emerald-950 dark:text-emerald-50 mb-2 md:mb-3 transition-colors"
 				>
@@ -38,7 +38,7 @@ import { version } from "../../package.json";
 				>
 					Dzikir dan Doa Rasulullah
 				</p>
-			</div>
+			</header>
 
 			{/* Dhikr Size Toggles */}
 			<div class="flex gap-8 md:gap-10 mb-8 md:mb-12" id="size-toggles">
@@ -132,7 +132,7 @@ import { version } from "../../package.json";
 			</div>
 
 			{/* Footer Citation */}
-			<div
+			<footer
 				class="mt-12 md:mt-24 mb-4 flex flex-col items-center opacity-80"
 			>
 				<div
@@ -154,8 +154,8 @@ import { version } from "../../package.json";
 				>
 					v{version}
 				</p>
-			</div>
-		</div>
+			</footer>
+		</main>
 	</Container>
 
 	<SettingsModal client:idle />
