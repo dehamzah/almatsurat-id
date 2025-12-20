@@ -8,6 +8,8 @@
         Languages,
         Minus,
         Plus,
+        HardDrive,
+        Trash2,
     } from "lucide-svelte";
     import { version } from "../../package.json";
     import type { Theme } from "../types";
@@ -18,11 +20,14 @@
         arabicFontSize as arabicFontSizeAtom,
         showTransliteration as showTransliterationAtom,
         showTranslation as showTranslationAtom,
+        audioCacheEnabled as audioCacheEnabledAtom,
         isSettingsOpen,
         applyTheme,
         applyFontSize,
         applyVisibility,
     } from "../store/settings";
+    import { getCacheSize, clearAudioCache } from "../utils/audioCache";
+    import { onMount } from "svelte";
 
     // Derived values (handled automatically by Svelte reactivity with $store)
     // We need to parse strings for logic
@@ -54,6 +59,30 @@
         applyVisibility("translation", newVal);
     }
 
+    function handleToggleAudioCache() {
+        const current = $audioCacheEnabledAtom === "true";
+        audioCacheEnabledAtom.set(String(!current));
+    }
+
+    let cacheSize = "...";
+    let isClearingCache = false;
+
+    async function updateCacheSize() {
+        cacheSize = await getCacheSize();
+    }
+
+    async function handleClearCache() {
+        isClearingCache = true;
+        await clearAudioCache();
+        await updateCacheSize();
+        isClearingCache = false;
+    }
+
+    // Refresh cache size when modal opens
+    $: if ($isSettingsOpen) {
+        updateCacheSize();
+    }
+
     function onClose() {
         isSettingsOpen.set(false);
     }
@@ -68,6 +97,7 @@
     $: arabicFontSize = parseInt($arabicFontSizeAtom || "2", 10);
     $: isTransliterationOn = $showTransliterationAtom !== "false";
     $: isTranslationOn = $showTranslationAtom !== "false";
+    $: isAudioCacheEnabled = $audioCacheEnabledAtom === "true";
 
     const themeOptions: Theme[] = ["auto", "light", "dark"];
 </script>
@@ -272,6 +302,68 @@
                         >
                             بِسْمِ اللَّهِ
                         </p>
+                    </div>
+                </div>
+
+                <!-- Audio Cache Option -->
+                <div>
+                    <span
+                        class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-3 block"
+                        >Audio Offline</span
+                    >
+                    <div class="space-y-3">
+                        <button
+                            onclick={handleToggleAudioCache}
+                            role="switch"
+                            aria-checked={isAudioCacheEnabled}
+                            class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
+                        >
+                            <div class="flex items-center gap-3">
+                                <HardDrive size={18} class="text-stone-400" />
+                                <div class="text-left">
+                                    <span
+                                        class="text-sm font-medium text-stone-700 dark:text-stone-300 block"
+                                        >Simpan Audio</span
+                                    >
+                                    <span class="text-xs text-stone-400 block"
+                                        >Unduh audio saat diputar</span
+                                    >
+                                </div>
+                            </div>
+                            <div
+                                class="w-10 h-6 rounded-full transition-colors relative {isAudioCacheEnabled
+                                    ? 'bg-emerald-500'
+                                    : 'bg-stone-200 dark:bg-stone-700'}"
+                            >
+                                <div
+                                    class="absolute top-1 w-4 h-4 bg-white rounded-full transition-all {isAudioCacheEnabled
+                                        ? 'left-5'
+                                        : 'left-1'}"
+                                ></div>
+                            </div>
+                        </button>
+
+                        <button
+                            onclick={handleClearCache}
+                            disabled={cacheSize === "0 MB" || isClearingCache}
+                            class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-200 dark:hover:border-red-800 transition-colors group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:border-stone-200 disabled:dark:hover:border-stone-700"
+                        >
+                            <div class="flex items-center gap-3">
+                                <Trash2
+                                    size={18}
+                                    class="text-stone-400 group-hover:text-red-500 transition-colors"
+                                />
+                                <span
+                                    class="text-sm font-medium text-stone-700 dark:text-stone-300 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors"
+                                    >Hapus Cache</span
+                                >
+                            </div>
+                            <span
+                                class="text-xs font-mono text-stone-500 dark:text-stone-400"
+                            >
+                                {isClearingCache ? "Menghapus..." : cacheSize}
+                            </span>
+                        </button>
                     </div>
                 </div>
 
