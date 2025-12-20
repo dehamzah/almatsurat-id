@@ -17,6 +17,9 @@ export default defineConfig({
                 filename: "stats.html",
             }),
         ],
+        esbuild: {
+            legalComments: 'none',
+        },
     },
     integrations: [
         svelte(),
