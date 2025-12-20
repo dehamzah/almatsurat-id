@@ -10,6 +10,7 @@
     "audit": "bun run build && start-server-and-test preview http://localhost:4321 'lighthouse http://localhost:4321 --view --no-enable-error-reporting'",
     "check": "bun run astro check && bun run svelte-check",
     "test": "vitest",
+    "test:e2e": "playwright test",
     "deploy": "bun run build && wrangler deploy"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@vite-pwa/astro": "^1.2.0",
     "lighthouse": "^13.0.1",
     "rollup-plugin-visualizer": "^6.0.5",

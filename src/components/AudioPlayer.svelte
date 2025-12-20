@@ -104,6 +104,7 @@
         class="p-2 text-stone-600 dark:text-stone-300 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 rounded-full transition-colors flex items-center justify-center"
         aria-label={isPlaying ? "Pause Audio" : "Play Audio"}
         title={isPlaying ? "Pause Audio" : "Play Audio"}
+        data-testid="audio-player-button"
     >
         {#if isLoading}
             <Loader2

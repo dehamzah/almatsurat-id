@@ -316,6 +316,7 @@
                             onclick={handleToggleAudioCache}
                             role="switch"
                             aria-checked={isAudioCacheEnabled}
+                            data-testid="audio-cache-toggle"
                             class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
                         >
                             <div class="flex items-center gap-3">
@@ -346,6 +347,7 @@
                         <button
                             onclick={handleClearCache}
                             disabled={cacheSize === "0 MB" || isClearingCache}
+                            data-testid="clear-cache-button"
                             class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-200 dark:hover:border-red-800 transition-colors group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:border-stone-200 disabled:dark:hover:border-stone-700"
                         >
                             <div class="flex items-center gap-3">
@@ -360,6 +362,7 @@
                             </div>
                             <span
                                 class="text-xs font-mono text-stone-500 dark:text-stone-400"
+                                data-testid="cache-size-text"
                             >
                                 {isClearingCache ? "Menghapus..." : cacheSize}
                             </span>

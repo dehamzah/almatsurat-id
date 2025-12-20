@@ -25,3 +25,8 @@ pnpm-debug.log*
 
 # bundle stats
 stats.html
+
+# playwright
+test-results/
+playwright-report/
+dev-dist/
