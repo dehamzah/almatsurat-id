@@ -17,7 +17,7 @@ const combinedTransliteration = data.children
 const combinedTranslation = data.children.map((c) => c.translation).join(" ");
 ---
 
-<div
+<article
     class="w-full mx-auto animate-enter opacity-0"
     style={`animation-delay: ${index * 50}ms; animation-fill-mode: forwards;`}
 >
@@ -94,4 +94,4 @@ const combinedTranslation = data.children.map((c) => c.translation).join(" ");
         {/* Separator */}
         <SimpleSeparator />
     </div>
-</div>
+</article>
