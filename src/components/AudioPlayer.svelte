@@ -1,16 +1,22 @@
 <script lang="ts">
-    import { Play, Pause, Loader2 } from "lucide-svelte";
+    import { Play, Pause, Loader2, CircleAlert } from "lucide-svelte";
     import { onMount } from "svelte";
     import { audioCacheEnabled } from "../store/settings";
     import { getCachedAudio, cacheAudio } from "../utils/audioCache";
+    import Toast from "./Toast.svelte";
 
-    export let mode: "pagi" | "petang";
-    export let size: "sughro" | "kubro";
+    interface Props {
+        mode: "pagi" | "petang";
+        size: "sughro" | "kubro";
+    }
+
+    let { mode, size }: Props = $props();
 
     let audio: HTMLAudioElement;
-    let isPlaying = false;
-    let isLoading = false;
-    let currentSrc = "";
+    let isPlaying = $state(false);
+    let isLoading = $state(false);
+    let currentSrc = $state("");
+    let showErrorToast = $state(false);
 
     const BASE_PATH_AUDIO = "/audio";
     const audioMap: Record<string, string> = {
@@ -20,12 +26,14 @@
         "petang-kubro": BASE_PATH_AUDIO + "/al_matsurat_petang_kubro.m4a",
     };
 
-    $: remoteSrc = audioMap[`${mode}-${size}`];
+    let remoteSrc = $derived(audioMap[`${mode}-${size}`]);
 
     // Check for cached version when source changes
-    $: if (remoteSrc) {
-        checkCache(remoteSrc);
-    }
+    $effect(() => {
+        if (remoteSrc) {
+            checkCache(remoteSrc);
+        }
+    });
 
     async function checkCache(url: string) {
         // Reset to remote first to avoid stale blob
@@ -35,6 +43,10 @@
             console.log("Using cached audio for:", url);
             currentSrc = cachedBlob;
         }
+    }
+
+    function closeErrorToast() {
+        showErrorToast = false;
     }
 
     async function togglePlay() {
@@ -59,7 +71,11 @@
                 await audio.play();
             } catch (e) {
                 console.error("Error playing audio:", e);
-                alert("Gagal memutar audio. Periksa koneksi internet anda.");
+                showErrorToast = true;
+                // Auto hide after 5 seconds
+                setTimeout(() => {
+                    showErrorToast = false;
+                }, 5000);
             } finally {
                 isLoading = false;
             }
@@ -84,23 +100,39 @@
         isLoading = false;
         isPlaying = false;
         console.error("Audio error:", e);
+        showErrorToast = true;
     }
 </script>
+
+{#if showErrorToast}
+    <div class="fixed top-4 right-4 z-50">
+        <Toast
+            type="error"
+            title="Gagal Memutar Audio"
+            message="Periksa koneksi internet anda atau coba lagi nanti."
+            onClose={closeErrorToast}
+        >
+            {#snippet icon()}
+                <CircleAlert size={18} />
+            {/snippet}
+        </Toast>
+    </div>
+{/if}
 
 <div class="flex items-center">
     <audio
         bind:this={audio}
         src={currentSrc}
-        on:play={handlePlay}
-        on:pause={handlePause}
-        on:ended={handleEnded}
-        on:error={handleError}
+        onplay={handlePlay}
+        onpause={handlePause}
+        onended={handleEnded}
+        onerror={handleError}
         class="hidden"
         preload="none"
     ></audio>
 
     <button
-        on:click={togglePlay}
+        onclick={togglePlay}
         class="p-2 text-stone-600 dark:text-stone-300 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 rounded-full transition-colors flex items-center justify-center"
         aria-label={isPlaying ? "Pause Audio" : "Play Audio"}
         title={isPlaying ? "Pause Audio" : "Play Audio"}
