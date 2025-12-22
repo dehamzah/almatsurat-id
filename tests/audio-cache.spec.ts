@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Audio Caching Feature', () => {
-    test('should enable caching, cache audio on play, and clear cache', async ({ page }) => {
+    test('should download specific audio, cache it, and show downloaded status', async ({ page }) => {
         // 1. Go to a page with audio player
         await page.goto('/dzikir-pagi-sughro');
         await page.waitForLoadState('networkidle');
@@ -12,27 +12,35 @@ test.describe('Audio Caching Feature', () => {
         // Check if modal opened
         await expect(page.getByRole('heading', { name: 'Pengaturan' })).toBeVisible({ timeout: 5000 });
 
-        // 3. Enable "Simpan Audio"
-        const toggle = page.getByTestId('audio-cache-toggle');
-        await expect(toggle).toBeVisible();
-        
-        // It should be off by default
-        await expect(toggle).toHaveAttribute('aria-checked', 'false');
-        
-        await toggle.click();
-        await expect(toggle).toHaveAttribute('aria-checked', 'true');
+        // 3. Find "Dzikir Pagi Sughro" in the list and download
+        const trackRow = page.getByTestId('audio-track-pagi-sughro');
+            
+        // Wait for the row to be visible first
+        await expect(trackRow).toBeVisible();
+
+        // Initial state: Download button should be visible
+        const downloadBtn = trackRow.getByTitle('Unduh audio');
+        await expect(downloadBtn).toBeVisible();
+
+        // Click download
+        await downloadBtn.click();
+
+        // 4. Verify Download Progress/Completion
+        // It might be fast, so we might see "Mengunduh..." or straight to "Tersimpan"
+        // Let's wait for "Tersimpan" (Cached) status
+        // The trash icon implies it is cached
+        const deleteBtn = trackRow.getByTitle('Hapus audio');
+        await expect(deleteBtn).toBeVisible({ timeout: 15000 }); // Give it time to download
 
         // Close Settings
-        await page.getByRole('button', { name: /close/i }).click();
+        await page.getByTestId('settings-close-button').click();
 
-        // 4. Play Audio
+        // 5. Play Audio
         const playButton = page.getByTestId('audio-player-button');
         await expect(playButton).toBeVisible();
         await playButton.click();
 
-        // 5. Verify Cache Population
-        // This might take a moment as it is network request
-        // We can poll the cache size using page.evaluate
+        // 6. Verify Cache Population via script
         await expect.poll(async () => {
              return await page.evaluate(async () => {
                  const cacheName = 'almatsurat-audio-cache-v1';
@@ -41,27 +49,28 @@ test.describe('Audio Caching Feature', () => {
                  const keys = await cache.keys();
                  return keys.length;
              });
-        }, { timeout: 10000 }).toBeGreaterThan(0);
+        }, { timeout: 5000 }).toBeGreaterThan(0);
 
         // Stop audio
-        await playButton.click(); // Using same button to toggle off
+        await playButton.click();
 
-        // 6. Verify Cache Size in Settings
+        // 7. Verify Cache Size in Settings and Delete
         await page.getByTestId('settings-trigger').click();
         
-        // The "Hapus Cache" button should show size > 0 MB
-        const cacheSizeText = page.getByTestId('cache-size-text');
-        await expect(cacheSizeText).not.toHaveText('0 MB');
-
-        // 7. Clear Cache
-        const clearButton = page.getByTestId('clear-cache-button');
-        await clearButton.click();
-
-        // Verify size goes back to 0 MB
-        await expect(cacheSizeText).toHaveText('0 MB');
+        // Delete the audio
+        await deleteBtn.click();
         
-        // Verify in storage
-        const keyCount = await page.evaluate(async () => {
+        // Should revert to download button
+        await expect(downloadBtn).toBeVisible();
+
+        // 8. Clear all cache just to be sure (optional, but good for cleanup)
+        // Check if "Hapus Semua Audio" is visible or not
+        // If cache empty, it shouldn't show (or show 0 MB depending on logic, but we added logic to hide/disable)
+        // logic: if cacheSize !== '0 MB'
+        
+        // Since we deleted the only file, it should be 0 MB and the button should be gone or not "Hapus Semua"
+        // Let's verify via script that cache is empty
+         const keyCount = await page.evaluate(async () => {
              const cacheName = 'almatsurat-audio-cache-v1';
              if (!('caches' in window)) return 0;
              const cache = await caches.open(cacheName);

@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Play, Pause, Loader2, CircleAlert } from "lucide-svelte";
     import { onMount } from "svelte";
-    import { audioCacheEnabled } from "../store/settings";
-    import { getCachedAudio, cacheAudio } from "../utils/audioCache";
+    import { getAudioUrlById } from "../data/audio";
+    import { getCachedAudio } from "../utils/audioCache";
     import Toast from "./Toast.svelte";
 
     interface Props {
@@ -18,16 +18,7 @@
     let currentSrc = $state("");
     let showErrorToast = $state(false);
 
-    const BASE_PATH_AUDIO =
-        "https://github.com/dehamzah/almatsurat-audio/raw/refs/heads/main/aac";
-    const audioMap: Record<string, string> = {
-        "pagi-sughro": BASE_PATH_AUDIO + "/al_matsurat_pagi_sughro.m4a",
-        "pagi-kubro": BASE_PATH_AUDIO + "/al_matsurat_pagi_kubro.m4a",
-        "petang-sughro": BASE_PATH_AUDIO + "/al_matsurat_petang_sughro.m4a",
-        "petang-kubro": BASE_PATH_AUDIO + "/al_matsurat_petang_kubro.m4a",
-    };
-
-    let remoteSrc = $derived(audioMap[`${mode}-${size}`]);
+    let remoteSrc = $derived(getAudioUrlById(`${mode}-${size}`) || "");
 
     // Check for cached version when source changes
     $effect(() => {
@@ -58,17 +49,7 @@
         } else {
             isLoading = true;
             try {
-                // If not using cache yet, and caching allowed, try to cache
-                if ($audioCacheEnabled === "true" && currentSrc === remoteSrc) {
-                    console.log("Triggering background cache for:", remoteSrc);
-                    // Don't await this, let it happen in background
-                    cacheAudio(remoteSrc).then((startCaching) => {
-                        if (startCaching) {
-                            console.log("Cached successfully");
-                        }
-                    });
-                }
-
+                // Just play, cache check happened in effect
                 await audio.play();
             } catch (e) {
                 console.error("Error playing audio:", e);

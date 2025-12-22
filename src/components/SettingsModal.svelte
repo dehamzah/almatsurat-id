@@ -8,8 +8,6 @@
         Languages,
         Minus,
         Plus,
-        HardDrive,
-        Trash2,
     } from "lucide-svelte";
     import { version } from "../../package.json";
     import type { Theme } from "../types";
@@ -20,14 +18,21 @@
         arabicFontSize as arabicFontSizeAtom,
         showTransliteration as showTransliterationAtom,
         showTranslation as showTranslationAtom,
-        audioCacheEnabled as audioCacheEnabledAtom,
         isSettingsOpen,
         applyTheme,
         applyFontSize,
         applyVisibility,
     } from "../store/settings";
-    import { getCacheSize, clearAudioCache } from "../utils/audioCache";
+    import {
+        getCacheSize,
+        clearAudioCache,
+        cacheAudio,
+        deleteCachedAudio,
+        isAudioCached,
+    } from "../utils/audioCache";
+    import { AUDIO_TRACKS, getAudioUrl } from "../data/audio";
     import { onMount } from "svelte";
+    import { Download, Check, Trash2, Loader, PlayCircle } from "lucide-svelte";
 
     // Derived values (handled automatically by Svelte reactivity with $store)
     // We need to parse strings for logic
@@ -59,13 +64,62 @@
         applyVisibility("translation", newVal);
     }
 
-    function handleToggleAudioCache() {
-        const current = $audioCacheEnabledAtom === "true";
-        audioCacheEnabledAtom.set(String(!current));
+    let audioStatus = $state<Record<string, "idle" | "downloading" | "cached">>(
+        {},
+    );
+    let downloadProgress = $state<Record<string, number>>({});
+
+    function updateAudioStatus() {
+        AUDIO_TRACKS.forEach(async (track) => {
+            const url = getAudioUrl(track);
+            const isCached = await isAudioCached(url);
+            if (audioStatus[track.id] !== "downloading") {
+                audioStatus[track.id] = isCached ? "cached" : "idle";
+            }
+        });
     }
 
-    let cacheSize = "...";
-    let isClearingCache = false;
+    // Initial check
+    $effect(() => {
+        if ($isSettingsOpen) {
+            updateAudioStatus();
+            updateCacheSize();
+        }
+    });
+
+    async function handleDownload(id: string) {
+        const track = AUDIO_TRACKS.find((t) => t.id === id);
+        if (!track) return;
+
+        audioStatus[id] = "downloading";
+        downloadProgress[id] = 0;
+
+        const url = getAudioUrl(track);
+        const success = await cacheAudio(url, (progress) => {
+            downloadProgress[id] = progress;
+        });
+
+        if (success) {
+            audioStatus[id] = "cached";
+            updateCacheSize();
+        } else {
+            audioStatus[id] = "idle";
+            // Optional: show error toast?
+        }
+    }
+
+    async function handleDelete(id: string) {
+        const track = AUDIO_TRACKS.find((t) => t.id === id);
+        if (!track) return;
+
+        const url = getAudioUrl(track);
+        await deleteCachedAudio(url);
+        audioStatus[id] = "idle";
+        updateCacheSize();
+    }
+
+    let cacheSize = $state("...");
+    let isClearingCache = $state(false);
 
     async function updateCacheSize() {
         cacheSize = await getCacheSize();
@@ -75,13 +129,19 @@
         isClearingCache = true;
         await clearAudioCache();
         await updateCacheSize();
+        // Reset status
+        AUDIO_TRACKS.forEach((track) => {
+            audioStatus[track.id] = "idle";
+        });
         isClearingCache = false;
     }
 
     // Refresh cache size when modal opens
-    $: if ($isSettingsOpen) {
-        updateCacheSize();
-    }
+    $effect(() => {
+        if ($isSettingsOpen) {
+            updateCacheSize();
+        }
+    });
 
     function onClose() {
         isSettingsOpen.set(false);
@@ -94,10 +154,9 @@
         }
     }
 
-    $: arabicFontSize = parseInt($arabicFontSizeAtom || "2", 10);
-    $: isTransliterationOn = $showTransliterationAtom !== "false";
-    $: isTranslationOn = $showTranslationAtom !== "false";
-    $: isAudioCacheEnabled = $audioCacheEnabledAtom === "true";
+    let arabicFontSize = $derived(parseInt($arabicFontSizeAtom || "2", 10));
+    let isTransliterationOn = $derived($showTransliterationAtom !== "false");
+    let isTranslationOn = $derived($showTranslationAtom !== "false");
 
     const themeOptions: Theme[] = ["auto", "light", "dark"];
 </script>
@@ -134,6 +193,7 @@
                     Pengaturan
                 </h3>
                 <button
+                    data-testid="settings-close-button"
                     onclick={onClose}
                     aria-label="Close settings"
                     class="p-1 -mr-1 text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full transition-colors cursor-pointer"
@@ -312,61 +372,122 @@
                         >Audio Offline</span
                     >
                     <div class="space-y-3">
-                        <button
-                            onclick={handleToggleAudioCache}
-                            role="switch"
-                            aria-checked={isAudioCacheEnabled}
-                            data-testid="audio-cache-toggle"
-                            class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:border-emerald-500 dark:hover:border-emerald-500 transition-colors"
+                        <div
+                            class="bg-stone-50 dark:bg-stone-800 rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700"
                         >
-                            <div class="flex items-center gap-3">
-                                <HardDrive size={18} class="text-stone-400" />
-                                <div class="text-left">
-                                    <span
-                                        class="text-sm font-medium text-stone-700 dark:text-stone-300 block"
-                                        >Simpan Audio</span
-                                    >
-                                    <span class="text-xs text-stone-400 block"
-                                        >Unduh audio saat diputar</span
-                                    >
-                                </div>
-                            </div>
-                            <div
-                                class="w-10 h-6 rounded-full transition-colors relative {isAudioCacheEnabled
-                                    ? 'bg-emerald-500'
-                                    : 'bg-stone-200 dark:bg-stone-700'}"
-                            >
+                            {#each AUDIO_TRACKS as track}
                                 <div
-                                    class="absolute top-1 w-4 h-4 bg-white rounded-full transition-all {isAudioCacheEnabled
-                                        ? 'left-5'
-                                        : 'left-1'}"
-                                ></div>
-                            </div>
-                        </button>
-
-                        <button
-                            onclick={handleClearCache}
-                            disabled={cacheSize === "0 MB" || isClearingCache}
-                            data-testid="clear-cache-button"
-                            class="cursor-pointer w-full flex items-center justify-between p-3 rounded-lg border border-stone-200 dark:border-stone-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-200 dark:hover:border-red-800 transition-colors group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:border-stone-200 disabled:dark:hover:border-stone-700"
-                        >
-                            <div class="flex items-center gap-3">
-                                <Trash2
-                                    size={18}
-                                    class="text-stone-400 group-hover:text-red-500 transition-colors"
-                                />
-                                <span
-                                    class="text-sm font-medium text-stone-700 dark:text-stone-300 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors"
-                                    >Hapus Cache</span
+                                    class="p-3 border-b border-stone-200 dark:border-stone-700 last:border-0 flex items-center justify-between gap-3"
+                                    data-testid={`audio-track-${track.id}`}
                                 >
-                            </div>
-                            <span
-                                class="text-xs font-mono text-stone-500 dark:text-stone-400"
-                                data-testid="cache-size-text"
+                                    <div class="flex-1 min-w-0">
+                                        <div
+                                            class="flex items-center gap-2 mb-1"
+                                        >
+                                            <PlayCircle
+                                                size={16}
+                                                class="text-stone-400"
+                                            />
+                                            <span
+                                                class="text-sm font-medium text-stone-700 dark:text-stone-300 truncate"
+                                            >
+                                                {track.label}
+                                            </span>
+                                        </div>
+                                        {#if audioStatus[track.id] === "downloading"}
+                                            <div
+                                                class="w-full bg-stone-200 dark:bg-stone-700 rounded-full h-1.5 mt-2"
+                                            >
+                                                <div
+                                                    class="bg-emerald-500 h-1.5 rounded-full transition-all duration-300"
+                                                    style="width: {Math.round(
+                                                        downloadProgress[
+                                                            track.id
+                                                        ],
+                                                    )}%"
+                                                ></div>
+                                            </div>
+                                            <div
+                                                class="flex justify-between mt-1"
+                                            >
+                                                <span
+                                                    class="text-[10px] text-stone-400"
+                                                    >Mengunduh...</span
+                                                >
+                                                <span
+                                                    class="text-[10px] text-stone-400"
+                                                    >{Math.round(
+                                                        downloadProgress[
+                                                            track.id
+                                                        ],
+                                                    )}%</span
+                                                >
+                                            </div>
+                                        {:else if audioStatus[track.id] === "cached"}
+                                            <span
+                                                class="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1"
+                                            >
+                                                <Check size={10} />
+                                                Tersimpan
+                                            </span>
+                                        {:else}
+                                            <span
+                                                class="text-[10px] text-stone-400"
+                                            >
+                                                Belum diunduh
+                                            </span>
+                                        {/if}
+                                    </div>
+
+                                    <div class="flex items-center">
+                                        {#if audioStatus[track.id] === "downloading"}
+                                            <div
+                                                class="w-8 h-8 flex items-center justify-center"
+                                            >
+                                                <Loader
+                                                    size={16}
+                                                    class="animate-spin text-emerald-500"
+                                                />
+                                            </div>
+                                        {:else if audioStatus[track.id] === "cached"}
+                                            <button
+                                                onclick={() =>
+                                                    handleDelete(track.id)}
+                                                class="w-8 h-8 flex items-center justify-center rounded-full text-stone-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                                                title="Hapus audio"
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        {:else}
+                                            <button
+                                                onclick={() =>
+                                                    handleDownload(track.id)}
+                                                class="w-8 h-8 flex items-center justify-center rounded-full text-stone-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
+                                                title="Unduh audio"
+                                            >
+                                                <Download size={16} />
+                                            </button>
+                                        {/if}
+                                    </div>
+                                </div>
+                            {/each}
+                        </div>
+
+                        {#if isClearingCache}
+                            <div
+                                class="flex items-center justify-center p-2 text-sm text-stone-500"
                             >
-                                {isClearingCache ? "Menghapus..." : cacheSize}
-                            </span>
-                        </button>
+                                <Loader size={14} class="animate-spin mr-2" />
+                                Menghapus semua data...
+                            </div>
+                        {:else if cacheSize !== "0 MB" && cacheSize !== "..."}
+                            <button
+                                onclick={handleClearCache}
+                                class="w-full text-xs text-red-500 hover:text-red-600 dark:hover:text-red-400 underline decoration-red-200 dark:decoration-red-900 decoration-1 underline-offset-2 transition-colors"
+                            >
+                                Hapus Semua Audio ({cacheSize})
+                            </button>
+                        {/if}
                     </div>
                 </div>
 
