@@ -16,6 +16,7 @@ export const arabicFontSize = persistentAtom<string>('settings:arabicFontSize', 
 export const showTransliteration = persistentAtom<string>('settings:showTransliteration', DEFAULT_SETTINGS.showTransliteration);
 export const showTranslation = persistentAtom<string>('settings:showTranslation', DEFAULT_SETTINGS.showTranslation);
 export const audioCacheEnabled = persistentAtom<string>('settings:audioCacheEnabled', 'false');
+export const audioCacheVersion = atom(0);
 
 export function applyTheme(t: Theme) {
     if (typeof document === 'undefined') return;

@@ -1,9 +1,11 @@
 <script lang="ts">
     import { Play, Pause, Loader2, CircleAlert } from "lucide-svelte";
-    import { onMount } from "svelte";
+    import { untrack } from "svelte";
     import { getAudioUrlById } from "../data/audio";
     import { getCachedAudio } from "../utils/audioCache";
     import Toast from "./Toast.svelte";
+
+    import { audioCacheVersion } from "../store/settings";
 
     interface Props {
         mode: "pagi" | "petang";
@@ -20,10 +22,18 @@
 
     let remoteSrc = $derived(getAudioUrlById(`${mode}-${size}`) || "");
 
-    // Check for cached version when source changes
+    // Check for cached version when source changes or cache version updates
     $effect(() => {
+        // We depend on audioCacheVersion to re-check when downloads happen
+        const _ = $audioCacheVersion;
+
         if (remoteSrc) {
-            checkCache(remoteSrc);
+            // CRITICAL: specific user request - do not swap src if already playing
+            // Use untrack to prevent re-running this effect when isPlaying changes
+            const playing = untrack(() => isPlaying);
+            if (!playing) {
+                checkCache(remoteSrc);
+            }
         }
     });
 

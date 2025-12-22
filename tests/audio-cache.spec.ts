@@ -79,4 +79,63 @@ test.describe('Audio Caching Feature', () => {
         });
         expect(keyCount).toBe(0);
     });
+
+    test('should maintain playback position when paused (cached audio)', async ({ page }) => {
+        // 1. Go to page
+        await page.goto('/dzikir-pagi-sughro');
+        await page.waitForLoadState('networkidle');
+
+        // 2. Ensure downloaded (Using cached audio)
+        // Check if download button is there, if so click it
+        // Or simpler: check if "Tersimpan" is there. Use the logic from previous test or assumes state?
+        // Playwright tests usually start fresh unless configured otherwise.
+        
+        const trackRow = page.getByTestId('audio-track-pagi-sughro');
+        await page.getByTestId('settings-trigger').click();
+        
+        // Wait for settings
+        await expect(page.getByRole('heading', { name: 'Pengaturan' })).toBeVisible();
+
+        // Check status
+        const downloadBtn = trackRow.getByTitle('Unduh audio');
+        const count = await downloadBtn.count();
+        if (count > 0 && await downloadBtn.isVisible()) {
+             await downloadBtn.click();
+             await expect(trackRow.getByTitle('Hapus audio')).toBeVisible({ timeout: 15000 });
+        }
+        
+        // Close settings
+        await page.getByTestId('settings-close-button').click();
+
+        // 3. Play Audio
+        const playButton = page.getByTestId('audio-player-button');
+        await playButton.click();
+
+        // 4. Wait for some playback (e.g. 3 seconds)
+        await page.waitForTimeout(3000);
+
+        // 5. Pause
+        await playButton.click();
+
+        // 6. Check currentTime > 2
+        const currentTimeAtPause = await page.evaluate(() => {
+            const audio = document.querySelector('audio');
+            return audio ? audio.currentTime : 0;
+        });
+        
+        expect(currentTimeAtPause).toBeGreaterThan(2);
+
+        // 7. Play again
+        await playButton.click();
+        
+        // 8. Immediately check currentTime
+        const currentTimeResumed = await page.evaluate(() => {
+            const audio = document.querySelector('audio');
+            return audio ? audio.currentTime : 0;
+        });
+
+        // Should be greater or equal to where we paused (allowing for slight delay/progress)
+        // Definitely should NOT be close to 0 (unless we paused at 0 which we didn't)
+        expect(currentTimeResumed).toBeGreaterThanOrEqual(currentTimeAtPause);
+    });
 });

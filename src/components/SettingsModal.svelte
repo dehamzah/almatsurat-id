@@ -22,6 +22,7 @@
         applyTheme,
         applyFontSize,
         applyVisibility,
+        audioCacheVersion,
     } from "../store/settings";
     import {
         getCacheSize,
@@ -102,6 +103,8 @@
         if (success) {
             audioStatus[id] = "cached";
             updateCacheSize();
+            const currentVer = $audioCacheVersion;
+            audioCacheVersion.set(currentVer + 1);
         } else {
             audioStatus[id] = "idle";
             // Optional: show error toast?
@@ -116,6 +119,8 @@
         await deleteCachedAudio(url);
         audioStatus[id] = "idle";
         updateCacheSize();
+        const currentVer = $audioCacheVersion;
+        audioCacheVersion.set(currentVer + 1);
     }
 
     let cacheSize = $state("...");
@@ -129,6 +134,8 @@
         isClearingCache = true;
         await clearAudioCache();
         await updateCacheSize();
+        const currentVer = $audioCacheVersion;
+        audioCacheVersion.set(currentVer + 1);
         // Reset status
         AUDIO_TRACKS.forEach((track) => {
             audioStatus[track.id] = "idle";
