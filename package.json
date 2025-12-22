@@ -11,6 +11,7 @@
     "check": "bun run astro check && bun run svelte-check",
     "test": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "deploy": "bun run build && wrangler deploy"
   },
   "dependencies": {
