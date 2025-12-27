@@ -61,18 +61,29 @@ bun dev
 
 Visit `http://localhost:4321` to see the app.
 
+## 📊 Analytics
+
+This project supports Google Analytics (GA4). Analytics are enabled **only** when the `PUBLIC_GA_MEASUREMENT_ID` environment variable is set for production builds (e.g., Cloudflare Wrangler or your hosting provider). There is no UI toggle — analytics run when configured in production.
+
+Privacy defaults & notes:
+
+- We **ignore** Do Not Track (DNT) by design; the reason is that analytics are used **for product improvement only** (understand usage, prioritize features, and fix bugs).
+- IPs are **anonymized** before being sent to Google (`gtag('config', GA_ID, { anonymize_ip: true })`). This reduces location precision while preserving useful aggregate metrics.
+
+To enable in Cloudflare Workers (wrangler) set the `PUBLIC_GA_MEASUREMENT_ID` secret/config for your production environment.
+
 ## 🧞 Commands
 
 All commands are run from the root of the project:
 
-| Command | Action |
-| :--- | :--- |
-| `bun dev` | Starts local dev server at `localhost:4321`. |
-| `bun build` | Build your production site to `./dist/`. |
-| `bun preview` | Preview your build locally. |
+| Command         | Action                                                   |
+| :-------------- | :------------------------------------------------------- |
+| `bun dev`       | Starts local dev server at `localhost:4321`.             |
+| `bun build`     | Build your production site to `./dist/`.                 |
+| `bun preview`   | Preview your build locally.                              |
 | `bun run audit` | Run Lighthouse performance audit (requires build first). |
-| `bun run check` | Run `astro check` and `svelte-check` for type safety. |
-| `bun astro ...` | Run CLI commands like `astro add`, `astro check`. |
+| `bun run check` | Run `astro check` and `svelte-check` for type safety.    |
+| `bun astro ...` | Run CLI commands like `astro add`, `astro check`.        |
 
 ## 📂 Project Structure
 
