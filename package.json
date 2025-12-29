@@ -12,7 +12,8 @@
     "test": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "deploy": "bun run build && wrangler deploy"
+    "deploy": "bun run build && wrangler deploy",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.png"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
+    "@vite-pwa/assets-generator": "^1.0.2",
     "@vite-pwa/astro": "^1.2.0",
     "lighthouse": "^13.0.1",
     "rollup-plugin-visualizer": "^6.0.5",
