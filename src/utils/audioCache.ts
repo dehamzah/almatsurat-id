@@ -61,7 +61,6 @@ export async function cacheAudio(url: string, onProgress?: (percentage: number) 
         onProgress(100);
         return true;
     } catch (e) {
-        console.error('Failed to cache audio:', e);
         return false;
     }
 }

@@ -23,6 +23,7 @@ describe('audioCache', () => {
 
         cacheMock = {
             add: vi.fn().mockResolvedValue(undefined),
+            put: vi.fn().mockResolvedValue(undefined),
             match: vi.fn(),
             delete: vi.fn().mockResolvedValue(true),
             keys: vi.fn().mockResolvedValue([]),
@@ -37,18 +38,26 @@ describe('audioCache', () => {
         // Mock window.caches
         vi.stubGlobal('caches', cachesMock);
         vi.stubGlobal('window', { caches: cachesMock });
+        
+        // Mock global fetch
+        global.fetch = vi.fn().mockResolvedValue({
+            ok: true,
+            headers: { get: () => null },
+            statusText: 'OK',
+        });
     });
 
     describe('cacheAudio', () => {
         it('should cache audio successfully', async () => {
             const result = await cacheAudio('/audio.mp3');
             expect(cachesMock.open).toHaveBeenCalledWith(AUDIO_CACHE_NAME);
-            expect(cacheMock.add).toHaveBeenCalledWith('/audio.mp3');
+            expect(global.fetch).toHaveBeenCalledWith('/audio.mp3');
+            expect(cacheMock.put).toHaveBeenCalled(); 
             expect(result).toBe(true);
         });
 
         it('should return false if cache API throws', async () => {
-            cacheMock.add.mockRejectedValue(new Error('Failed'));
+            cacheMock.put.mockRejectedValue(new Error('Failed'));
             const result = await cacheAudio('/audio.mp3');
             expect(result).toBe(false);
         });
