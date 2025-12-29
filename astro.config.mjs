@@ -5,6 +5,7 @@ import svelte from '@astrojs/svelte';
 import { visualizer } from "rollup-plugin-visualizer";
 import AstroPWA from '@vite-pwa/astro'
 import sitemap from "@astrojs/sitemap";
+import partytown from '@astrojs/partytown';
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,6 +28,11 @@ export default defineConfig({
     integrations: [
         svelte(),
         sitemap(),
+        partytown({
+            config: {
+              forward: ["dataLayer.push"],
+            },
+        }),
         AstroPWA({
             registerType: 'prompt',
             injectRegister: null,
