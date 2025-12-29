@@ -1,16 +1,12 @@
-# almatsurat-astro
+# almatsurat-id
 
 > A high-performance, SEO-friendly Al-Matsurat application built with Astro and Svelte.
-
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Astro](https://img.shields.io/badge/astro-v5.0-orange.svg)
-![Svelte](https://img.shields.io/badge/svelte-v5.0-orange.svg)
 
 **Live Site:** [https://almatsurat.id](https://almatsurat.id)
 
 ## 📖 Overview
 
-**almatsurat-astro** is a modern web application dedicated to the Morning and Evening Dhikr (Al-Matsurat). It leverages the power of [Astro](https://astro.build) for static site generation (SSG) to ensure lightning-fast load times and excellent SEO, combined with [Svelte 5](https://svelte.dev) for a reactive and interactive user interface.
+**almatsurat-id** is a modern web application dedicated to the Morning and Evening Dhikr (Al-Matsurat). It leverages the power of [Astro](https://astro.build) for static site generation (SSG) to ensure lightning-fast load times and excellent SEO, combined with [Svelte 5](https://svelte.dev) for a reactive and interactive user interface.
 
 ## ✨ Key Features
 
@@ -18,10 +14,11 @@
 - **Customizable Reading Experience**:
   - Toggle **Translation** on/off.
   - Toggle **Transliteration** on/off.
-- **Persistent Settings**: User preferences are saved automatically using [Nanostores](https://github.com/nanostores/nanostores) and local storage.
+  - Configurable **Arabic font size**.
+- **Persistent Settings**: User preferences are saved automatically to local storage.
 - **Modern UI/UX**: Clean, responsive design built with **Tailwind CSS**.
 - **Dark Mode Support**: Optimized for reading in various lighting conditions.
-- **PWA Capabilities**: (Planned/In-progress) Installable on devices for offline access.
+- **PWA Capabilities**: Installable on devices for offline access.
 
 ## 🛠️ Tech Stack
 
@@ -31,72 +28,19 @@ This project uses a cutting-edge stack focused on performance and developer expe
 - **UI Library**: [Svelte v5](https://svelte.dev) - For interactive "Islands" (Runes syntax).
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com) - Utility-first CSS framework (via `@tailwindcss/vite`).
 - **State Management**: [Nanostores](https://github.com/nanostores/nanostores) - framework-agnostic state manager for sharing state between Astro islands.
-- **Runtime & PM**: [Bun](https://bun.sh) - Fast all-in-one JavaScript runtime.
+- **Runtime**: [Bun](https://bun.sh) - Fast all-in-one JavaScript runtime.
+- **Error Tracking**: [Sentry](https://sentry.io) - Real-time error monitoring and debugging.
+- **Analytics**: [Google Analytics 4](https://analytics.google.com) - Integrated via [Partytown](https://partytown.builder.io) for optimal performance.
 - **Icons**: [Lucide Svelte](https://lucide.dev).
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- [Bun](https://bun.sh) (v1.0 or later) is recommended.
-- Node.js (v18+) (Alternative if not using Bun).
-
-### Installation
-
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/dehamzah/almatsurat-astro.git
-cd almatsurat-astro
-bun install
-```
-
-### Running Locally
-
-Start the development server:
-
-```bash
-bun dev
-```
-
-Visit `http://localhost:4321` to see the app.
-
-## 🧞 Commands
-
-All commands are run from the root of the project:
-
-| Command | Action |
-| :--- | :--- |
-| `bun dev` | Starts local dev server at `localhost:4321`. |
-| `bun build` | Build your production site to `./dist/`. |
-| `bun preview` | Preview your build locally. |
-| `bun run audit` | Run Lighthouse performance audit (requires build first). |
-| `bun run check` | Run `astro check` and `svelte-check` for type safety. |
-| `bun astro ...` | Run CLI commands like `astro add`, `astro check`. |
-
-## 📂 Project Structure
-
-```text
-/
-├── public/           # Static assets (images, fonts, favicon)
-├── src/
-│   ├── components/   # Svelte components (UI & Logic) & Astro components
-│   ├── layouts/      # Astro layouts (Header, Footer wrappers)
-│   ├── pages/        # Astro file-based routing
-│   ├── store/        # Nanostores state definitions (settings.ts, etc.)
-│   ├── data/         # Static content (Dhikr JSON/TS data)
-│   └── icons/        # SVG icons (if extracted from lucide)
-├── astro.config.mjs  # Astro configuration
-├── package.json      # Project dependencies and scripts
-└── README.md         # Project documentation
-```
 
 ## 🤝 Contributing
 
-Contributions are welcome!
+Contributions are very welcome and greatly appreciated! To keep things smooth and collaborative, please follow these guidelines:
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Run the Project Locally
+
+    Before making changes, review [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for step-by-step instructions on setting up and running the project locally.
+
+2. Discuss Before You Code
+
+    Please open an issue first to discuss your idea, bug fix, or proposed change before submitting a pull request. This helps align expectations and avoids duplicated effort.
