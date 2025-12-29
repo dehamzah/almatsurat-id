@@ -111,8 +111,8 @@ test.describe('Audio Caching Feature', () => {
         const playButton = page.getByTestId('audio-player-button');
         await playButton.click();
 
-        // 4. Wait for some playback (e.g. 3 seconds)
-        await page.waitForTimeout(3000);
+        // 4. Wait for some playback (e.g. 4 seconds)
+        await page.waitForTimeout(4000);
 
         // 5. Pause
         await playButton.click();
