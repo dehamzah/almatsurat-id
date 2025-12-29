@@ -4,30 +4,37 @@ import { version } from "../../package.json";
 
 const appVersion = version;
 let FEEDBACK_FORM_URL = import.meta.env.PUBLIC_GOOGLE_FORMS_URL;
-if (import.meta.env.PUBLIC_GOOGLE_FORMS_PREFILLED_APP_VERSION_KEY) {
+if (
+    FEEDBACK_FORM_URL &&
+    import.meta.env.PUBLIC_GOOGLE_FORMS_PREFILLED_APP_VERSION_KEY
+) {
     FEEDBACK_FORM_URL +=
+        "&" +
         import.meta.env.PUBLIC_GOOGLE_FORMS_PREFILLED_APP_VERSION_KEY +
+        "=" +
         appVersion;
 }
 ---
 
-<div
-    class="mt-4 p-6 bg-emerald-50/50 dark:bg-emerald-900/10 rounded-2xl max-w-sm w-full"
->
-    <p class="font-serif font-bold text-emerald-900 dark:text-emerald-200 mb-1">
-        Bantu Aplikasi Ini Jadi Lebih Baik
-    </p>
-    <p class="text-xs text-stone-500 dark:text-stone-300 mb-4">
-        Menemukan bug atau kesalahan konten? Sampaikan juga ide dan saranmu agar
-        aplikasi ini semakin bermanfaat untuk semua.
-    </p>
-    <a
-        href={FEEDBACK_FORM_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/50 transition-colors text-sm font-medium shadow-sm transition-all duration-200 decoration-none"
-    >
-        <MessageSquare size={16} />
-        Beri Masukan
-    </a>
-</div>
+{
+    FEEDBACK_FORM_URL && (
+        <div class="mt-4 p-6 bg-emerald-50/50 dark:bg-emerald-900/10 rounded-2xl max-w-sm w-full">
+            <p class="font-serif font-bold text-emerald-900 dark:text-emerald-200 mb-1">
+                Bantu Aplikasi Ini Jadi Lebih Baik
+            </p>
+            <p class="text-xs text-stone-500 dark:text-stone-300 mb-4">
+                Menemukan bug atau kesalahan konten? Sampaikan juga ide dan
+                saranmu agar aplikasi ini semakin bermanfaat untuk semua.
+            </p>
+            <a
+                href={FEEDBACK_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-2 w-full py-2.5 bg-white dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/50 transition-colors text-sm font-medium shadow-sm transition-all duration-200 decoration-none"
+            >
+                <MessageSquare size={16} />
+                Beri Masukan
+            </a>
+        </div>
+    )
+}
