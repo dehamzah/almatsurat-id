@@ -6,6 +6,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import AstroPWA from '@vite-pwa/astro'
 import sitemap from "@astrojs/sitemap";
 import partytown from '@astrojs/partytown';
+import sentry from '@sentry/astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,6 +27,11 @@ export default defineConfig({
         },
     },
     integrations: [
+        sentry({
+            project: process.env.SENTRY_PROJECT,
+            org: process.env.SENTRY_ORG,
+            authToken: process.env.SENTRY_AUTH_TOKEN
+        }),
         svelte(),
         sitemap(),
         partytown({
