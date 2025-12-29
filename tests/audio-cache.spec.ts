@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Audio Caching Feature', () => {
     test('should download specific audio, cache it, and show downloaded status', async ({ page }) => {
         // 1. Go to a page with audio player
-        await page.goto('/dzikir-pagi-sughro');
+        await page.goto('/dzikir-pagi-sughro/');
         await page.waitForLoadState('networkidle');
 
         // 2. Open Settings
@@ -82,7 +82,7 @@ test.describe('Audio Caching Feature', () => {
 
     test('should maintain playback position when paused (cached audio)', async ({ page }) => {
         // 1. Go to page
-        await page.goto('/dzikir-pagi-sughro');
+        await page.goto('/dzikir-pagi-sughro/');
         await page.waitForLoadState('networkidle');
 
         // 2. Ensure downloaded (Using cached audio)
