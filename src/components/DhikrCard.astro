@@ -17,7 +17,13 @@ const combinedTransliteration = data.children
 const combinedTranslation = data.children.map((c) => c.translation).join(" ");
 ---
 
-<article class="w-full mx-auto">
+<article
+    class:list={[
+        "w-full mx-auto dhikr-card transition-transform duration-100 group",
+        data.repeat > 0 ? "cursor-pointer select-none touch-manipulation" : "",
+    ]}
+    data-repeat={data.repeat}
+>
     <div
         class="flex flex-col items-center justify-center text-center px-2 md:px-0"
     >
@@ -29,10 +35,12 @@ const combinedTranslation = data.children.map((c) => c.translation).join(" ");
                 {data.title}
             </h2>
             {
-                data.repeat > 1 && (
-                    <span class="text-xs text-emerald-600 dark:text-emerald-200 font-serif italic font-medium">
-                        Dibaca {data.repeat} kali
-                    </span>
+                data.repeat > 0 && (
+                    <div class="dhikr-count-display text-xs text-emerald-600 dark:text-emerald-200 font-serif italic font-medium flex items-center justify-center overflow-hidden h-5">
+                        <span class="dhikr-count-current translate-y-0">0</span>
+                        <span class="mx-1">/</span>
+                        <span>{data.repeat}x</span>
+                    </div>
                 )
             }
         </div>
@@ -94,3 +102,77 @@ const combinedTranslation = data.children.map((c) => c.translation).join(" ");
         <SimpleSeparator />
     </div>
 </article>
+
+<script>
+    function initDhikrCounters() {
+        const cards = document.querySelectorAll(".dhikr-card");
+        cards.forEach((card) => {
+            if (!(card instanceof HTMLElement)) return;
+
+            // Prevent double initialization
+            if (card.dataset.initialized === "true") return;
+
+            const repeat = parseInt(card.dataset.repeat || "0");
+            if (repeat <= 0) return;
+
+            card.dataset.initialized = "true";
+
+            const displayContainer = card.querySelector(".dhikr-count-display");
+            const currentCountSpan = card.querySelector(".dhikr-count-current");
+
+            let count = 0;
+
+            card.addEventListener("click", () => {
+                if (count < repeat) {
+                    count++;
+
+                    if (currentCountSpan instanceof HTMLElement) {
+                        currentCountSpan.textContent = count.toString();
+
+                        // Trigger reflow for animation restart
+                        currentCountSpan.classList.remove("animate-count-up");
+                        void currentCountSpan.offsetWidth;
+                        currentCountSpan.classList.add("animate-count-up");
+                    }
+
+                    // Haptic feedback
+                    if (navigator && navigator.vibrate) {
+                        if (count === repeat) {
+                            navigator.vibrate(50);
+                            displayContainer?.classList.add(
+                                "font-bold",
+                                "text-emerald-700",
+                                "dark:text-emerald-100",
+                            );
+                        } else {
+                            navigator.vibrate(10);
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    // Run on load
+    initDhikrCounters();
+
+    // Run on Astro view transitions (if enabled later)
+    document.addEventListener("astro:page-load", initDhikrCounters);
+</script>
+
+<style>
+    @keyframes countUp {
+        0% {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-count-up {
+        animation: countUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+</style>
