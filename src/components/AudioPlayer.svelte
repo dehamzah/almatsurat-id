@@ -20,29 +20,34 @@
     let currentSrc = $state("");
     let showErrorToast = $state(false);
 
-    let remoteSrc = $derived(getAudioUrlById(`${mode}-${size}`) || "");
+    let localSrc = $derived(getAudioUrlById(`${mode}-${size}`, "local") || "");
+    let githubSrc = $derived(
+        getAudioUrlById(`${mode}-${size}`, "github") || "",
+    );
 
     // Check for cached version when source changes or cache version updates
     $effect(() => {
         // We depend on audioCacheVersion to re-check when downloads happen
         const _ = $audioCacheVersion;
 
-        if (remoteSrc) {
+        if (localSrc && githubSrc) {
             // CRITICAL: specific user request - do not swap src if already playing
             // Use untrack to prevent re-running this effect when isPlaying changes
             const playing = untrack(() => isPlaying);
             if (!playing) {
-                checkCache(remoteSrc);
+                checkCache(localSrc, githubSrc);
             }
         }
     });
 
-    async function checkCache(url: string) {
-        // Reset to remote first to avoid stale blob
-        currentSrc = url;
-        const cachedBlob = await getCachedAudio(url);
+    async function checkCache(localUrl: string, githubUrl: string) {
+        // Default to GitHub URL for streaming
+        currentSrc = githubUrl;
+
+        // Check if the LOCAL url is in the cache (since we cache using local URL as key)
+        const cachedBlob = await getCachedAudio(localUrl);
         if (cachedBlob) {
-            console.log("Using cached audio for:", url);
+            // console.log("Using cached audio for:", localUrl);
             currentSrc = cachedBlob;
         }
     }

@@ -1,4 +1,5 @@
-// export const BASE_AUDIO_URL = "https://github.com/dehamzah/almatsurat-audio/raw/refs/heads/main/aac";
+
+export const BASE_AUDIO_URL_GITHUB = "https://github.com/dehamzah/almatsurat-audio/raw/refs/heads/main/aac";
 export const BASE_AUDIO_URL = "/audio";
 
 
@@ -41,12 +42,13 @@ export const AUDIO_TRACKS: AudioTrack[] = [
     }
 ];
 
-export function getAudioUrl(track: AudioTrack): string {
-    return `${BASE_AUDIO_URL}/${track.filename}`;
+export function getAudioUrl(track: AudioTrack, source: 'local' | 'github' = 'local'): string {
+    const baseUrl = source === 'github' ? BASE_AUDIO_URL_GITHUB : BASE_AUDIO_URL;
+    return `${baseUrl}/${track.filename}`;
 }
 
-export function getAudioUrlById(id: string): string | null {
+export function getAudioUrlById(id: string, source: 'local' | 'github' = 'local'): string | null {
     const track = AUDIO_TRACKS.find(t => t.id === id);
     if (!track) return null;
-    return getAudioUrl(track);
+    return getAudioUrl(track, source);
 }
