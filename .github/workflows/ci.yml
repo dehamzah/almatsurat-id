@@ -42,13 +42,13 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run build
         env:
-          PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.PUBLIC_GA_MEASUREMENT_ID }}
-          PUBLIC_GOOGLE_FORMS_URL: ${{ secrets.PUBLIC_GOOGLE_FORMS_URL }}
-          PUBLIC_GOOGLE_FORMS_PREFILLED_APP_VERSION_KEY: ${{ secrets.PUBLIC_GOOGLE_FORMS_PREFILLED_APP_VERSION_KEY }}
+          PUBLIC_GA_MEASUREMENT_ID: ${{ vars.PUBLIC_GA_MEASUREMENT_ID }}
+          PUBLIC_GOOGLE_FORMS_URL: ${{ vars.PUBLIC_GOOGLE_FORMS_URL }}
+          PUBLIC_GOOGLE_FORMS_PREFILLED_APP_VERSION_KEY: ${{ vars.PUBLIC_GOOGLE_FORMS_PREFILLED_APP_VERSION_KEY }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          PUBLIC_SENTRY_DSN: ${{ secrets.PUBLIC_SENTRY_DSN }}
+          PUBLIC_SENTRY_DSN: ${{ vars.PUBLIC_SENTRY_DSN }}
       - uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -83,6 +83,7 @@ jobs:
     needs: [e2e, check, unit-test]
     runs-on: ubuntu-24.04
     if: github.event_name == 'release'
+    environment: production
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
