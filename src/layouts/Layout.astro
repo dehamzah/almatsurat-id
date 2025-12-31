@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { DEFAULT_SETTINGS } from "../store/settings";
 import { pwaInfo } from "virtual:pwa-info";
 import PwaToast from "../components/PwaToast.svelte";
+import GlobalToast from "../components/GlobalToast.svelte";
 
 interface Props {
     title: string;
@@ -142,5 +143,6 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
     >
         <slot />
         <PwaToast client:idle />
+        <GlobalToast client:idle />
     </body>
 </html>

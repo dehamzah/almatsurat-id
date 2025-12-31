@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { Play, Pause, Loader2, CircleAlert } from "lucide-svelte";
+    import { Play, Pause, Loader2 } from "lucide-svelte";
     import { untrack } from "svelte";
     import { getAudioUrlById } from "../data/audio";
     import { getCachedAudio } from "../utils/audioCache";
-    import Toast from "./Toast.svelte";
+
+    import { showToast } from "../store/toast";
 
     import { audioCacheVersion } from "../store/settings";
 
@@ -18,7 +19,6 @@
     let isPlaying = $state(false);
     let isLoading = $state(false);
     let currentSrc = $state("");
-    let showErrorToast = $state(false);
 
     let localSrc = $derived(getAudioUrlById(`${mode}-${size}`, "local") || "");
     let githubSrc = $derived(
@@ -52,10 +52,6 @@
         }
     }
 
-    function closeErrorToast() {
-        showErrorToast = false;
-    }
-
     async function togglePlay() {
         if (!audio) return;
 
@@ -73,11 +69,13 @@
                 }
 
                 console.error("Error playing audio:", e);
-                showErrorToast = true;
-                // Auto hide after 5 seconds
-                setTimeout(() => {
-                    showErrorToast = false;
-                }, 5000);
+
+                showToast({
+                    type: "error",
+                    title: "Gagal Memutar Audio",
+                    message:
+                        "Periksa koneksi internet anda atau coba lagi nanti.",
+                });
             } finally {
                 isLoading = false;
             }
@@ -102,24 +100,14 @@
         isLoading = false;
         isPlaying = false;
         console.error("Audio error:", e);
-        showErrorToast = true;
+
+        showToast({
+            type: "error",
+            title: "Gagal Memutar Audio",
+            message: "Periksa koneksi internet anda atau coba lagi nanti.",
+        });
     }
 </script>
-
-{#if showErrorToast}
-    <div class="fixed top-4 right-4 z-50">
-        <Toast
-            type="error"
-            title="Gagal Memutar Audio"
-            message="Periksa koneksi internet anda atau coba lagi nanti."
-            onClose={closeErrorToast}
-        >
-            {#snippet icon()}
-                <CircleAlert size={18} />
-            {/snippet}
-        </Toast>
-    </div>
-{/if}
 
 <div class="flex items-center">
     <audio
