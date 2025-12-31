@@ -67,6 +67,11 @@
                 // Just play, cache check happened in effect
                 await audio.play();
             } catch (e) {
+                // Ignore AbortError which happens when pausing while loading
+                if (e instanceof Error && e.name === "AbortError") {
+                    return;
+                }
+
                 console.error("Error playing audio:", e);
                 showErrorToast = true;
                 // Auto hide after 5 seconds
