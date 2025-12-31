@@ -4,7 +4,7 @@ import { cacheAudio, getCachedAudio, clearAudioCache, getCacheSize, isAudioCache
 // Mock Blob and URL
 global.Blob = class {
     size: number;
-    constructor(content: any[], options: any) {
+    constructor(content: any[]) {
         this.size = content[0].length;
     }
 } as any;

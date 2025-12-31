@@ -113,11 +113,13 @@ const { title, description = "Dzikir Harian Muslim" } = Astro.props;
             import.meta.env.PUBLIC_GA_MEASUREMENT_ID && (
                 <>
                     <script
+                        is:inline
                         type="text/partytown"
                         async
                         src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_MEASUREMENT_ID}`}
                     ></script>
                     <script
+                        is:inline
                         type="text/partytown"
                         define:vars={{
                             GA_MEASUREMENT_ID:

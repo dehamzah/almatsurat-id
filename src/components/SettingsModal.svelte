@@ -13,6 +13,9 @@
     import type { Theme } from "../types";
     import { fade, fly, scale } from "svelte/transition";
     import { quintOut } from "svelte/easing";
+
+    let { ..._props } = $props();
+
     import {
         theme,
         arabicFontSize as arabicFontSizeAtom,

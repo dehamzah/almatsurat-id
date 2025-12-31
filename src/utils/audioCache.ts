@@ -70,7 +70,6 @@ export async function deleteCachedAudio(url: string): Promise<boolean> {
 
     try {
         const cache = await caches.open(AUDIO_CACHE_NAME);
-        const request = new Request(url); // Ensure we match by Request object if needed, but URL string usually works
         return await cache.delete(url);
     } catch (e) {
         console.error('Failed to delete cached audio:', e);
