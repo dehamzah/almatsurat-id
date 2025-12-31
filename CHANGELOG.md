@@ -19,12 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.0] - 2025-12-31
 
 ### Added
-- Initial release with Astro v5 and Svelte v5.
 - Morning and Evening Dhikr readings.
 - Dhikr counter feature.
 - Persistent user settings (translation, transliteration).
 - Dark mode support.
-- PWA integration.
+- PWA integration with offline support.
+- Audio dhikr recitation online and offline.
 - End-to-end testing with Playwright.
 - Sentry integration for error tracking.
 - Google Analytics integration.
