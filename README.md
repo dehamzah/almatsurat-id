@@ -6,7 +6,7 @@
 
 ## 📖 Overview
 
-**almatsurat-id** is a modern web application dedicated to the Morning and Evening Dhikr (Al-Matsurat). It leverages the power of [Astro](https://astro.build) for static site generation (SSG) to ensure lightning-fast load times and excellent SEO, combined with [Svelte 5](https://svelte.dev) for a reactive and interactive user interface.
+**almatsurat-id** is a modern web application dedicated to the Morning and Evening Dhikr (Al-Matsurat) in Bahasa Indonesia. It leverages the power of [Astro](https://astro.build) for static site generation (SSG) to ensure lightning-fast load times and excellent SEO, combined with [Svelte 5](https://svelte.dev) for a reactive and interactive user interface.
 
 ## ✨ Key Features
 

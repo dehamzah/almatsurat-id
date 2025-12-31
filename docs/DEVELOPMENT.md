@@ -13,7 +13,7 @@ This document provides a step-by-step guide for setting up and running the Al Ma
 
 ### Environment Variables
 
-You can add these optional environment variables to your `.env` file in order for the analytics and error tracking to work:
+You can add these **optional** environment variables to your `.env` file in order for the analytics and error tracking to work. You can skip this step if you only want to run the app locally.
 
 ```bash
 PUBLIC_SENTRY_DSN=your_sentry_dsn # Required for error tracking
@@ -45,6 +45,17 @@ bun run dev
 
 Visit `http://localhost:4321` to see the app.
 
+Or if you want a faster page load like in production. Run the production build and preview it:
+
+```bash
+bun run build
+bun run preview
+```
+
+Visit `http://localhost:4320` to see the app.
+
+
+
 ## 🧞 Commands
 
 All commands are run from the root of the project:
@@ -72,12 +83,3 @@ This project employs a robust testing strategy:
   ```bash
   bun run test:e2e
   ```
-
-## 📦 Deployment
-
-This project is configured for deployment on **Cloudflare Workers**.
-
-**Build and deploy the project**:
-   ```bash
-   bun run deploy
-   ```

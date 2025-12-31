@@ -1,6 +1,6 @@
 # PWA & Offline Capability Documentation
 
-This document explains the Progressive Web App (PWA) setup for the Al-Matsurat Astro project, specifically focusing on how offline capabilities and update notifications are implemented.
+This document explains the Progressive Web App (PWA) setup for the Al-Matsurat ID project, specifically focusing on how offline capabilities and update notifications are implemented.
 
 ## Overview
 
