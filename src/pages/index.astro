@@ -20,7 +20,7 @@ import { version } from "../../package.json";
 	<IslamicArtBackground />
 
 	<Container>
-		<main class="flex flex-col items-center">
+		<main class="flex flex-col items-center min-h-screen">
 			{/* Header with Settings */}
 			<nav class="absolute top-0 right-0 p-4 z-20">
 				<SettingsToggle client:load />
@@ -133,7 +133,7 @@ import { version } from "../../package.json";
 
 			{/* Footer Citation */}
 			<footer
-				class="mt-12 md:mt-24 mb-4 flex flex-col items-center opacity-80"
+				class="mt-auto pt-12 md:pt-24 mb-6 flex flex-col items-center opacity-80"
 			>
 				<div
 					class="w-12 h-px bg-gradient-to-r from-transparent via-emerald-800/20 dark:via-emerald-100/20 to-transparent mb-3"
