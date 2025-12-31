@@ -16,6 +16,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - ...
 
+
+## [2.0.1] - 2025-12-31
+
+### Changed
+- Refactor the toast component used in app error to be global and positioned on bottom right of the window.
+- Update audio url for online play to use github url that support streaming for faster loading.
+
+### Fixed
+- Adjust footer position on homepage to bottom of the screen.
+- Fix error toast showing when clicking audio pause button while the audio are in progress download.
+
+
 ## [2.0.0] - 2025-12-31
 
 ### Added
