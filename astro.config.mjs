@@ -31,7 +31,8 @@ export default defineConfig({
         sentry({
             project: process.env.SENTRY_PROJECT,
             org: process.env.SENTRY_ORG,
-            authToken: process.env.SENTRY_AUTH_TOKEN
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+            telemetry: false,
         }),
         svelte(),
         sitemap(),
