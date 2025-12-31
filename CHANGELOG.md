@@ -21,10 +21,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Morning and Evening Dhikr readings.
 - Dhikr counter feature.
-- Persistent user settings (translation, transliteration).
-- Dark mode support.
+- Persistent user settings.
+- Automatic theme based on system theme.
 - PWA integration with offline support.
 - Audio dhikr recitation online and offline.
+- Audio dhikr can be saved offline.
 - End-to-end testing with Playwright.
 - Sentry integration for error tracking.
 - Google Analytics integration.
+
+### Changed
+- New UI/UX
+
