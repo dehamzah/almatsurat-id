@@ -18,7 +18,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'bun run build && bun run preview',
+    command: process.env.CI ? 'bun run preview' : 'bun run build && bun run preview',
     url: 'http://localhost:4320',
     reuseExistingServer: !process.env.CI,
   },
