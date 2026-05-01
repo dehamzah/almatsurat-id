@@ -675,7 +675,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
     children: [
       {
         arabic:
-          "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلّٰهِ وَالْحَمْدُ لِلّٰهِ لَا شَرِيْكَ لَهُ. لَآ إِلٰهَ اِلاَّ هُوَ وَاِلَيْهِ النُّشُوْرُ",
+          "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلّٰهِ وَالْحَمْدُ لِلّٰهِ لَا شَرِيْكَ لَهُ. لَآ إِلٰهَ اِلاَّ هُوَ وَاِلَيْهِ الْمَصِيْرُ",
         transliteration:
           "Amsainaa wa amsal-mulku lillahi walhamdu lillahi laa syarika lahu, laa ilaaha illaahu wa ilaihinnusyuur.",
         translation:
@@ -975,7 +975,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
     children: [
       {
         arabic:
-          "لَا إِلٰهَ إِلَّا اللّهُ وَحْدَهُو لَاشَرِيْكَ لَه. لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ",
+          "لَا إِلٰهَ إِلَّا اللّهُ  وَحْدَهُ لَاشَرِيْكَ لَه. لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ",
         transliteration:
           "Lā ilāha illallāhu waḥdahu lā syarīka lahu lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai-in qadīr.",
         translation:
