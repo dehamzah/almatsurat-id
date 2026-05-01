@@ -675,7 +675,7 @@ export const ADHKAR_DATA: DhikrItem[] = [
     children: [
       {
         arabic:
-          "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلّٰهِ وَالْحَمْدُ لِلّٰهِ لَا شَرِيْكَ لَهُ. لَآ إِلٰهَ اِلاَّ هُوَ وَاِلَيْهِ النُّشُوْرُ",
+          "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلّٰهِ وَالْحَمْدُ لِلّٰهِ لَا شَرِيْكَ لَهُ. لَآ إِلٰهَ اِلاَّ هُوَ وَاِلَيْهِ الْمَصِيْرُ",
         transliteration:
           "Amsainaa wa amsal-mulku lillahi walhamdu lillahi laa syarika lahu, laa ilaaha illaahu wa ilaihinnusyuur.",
         translation:
