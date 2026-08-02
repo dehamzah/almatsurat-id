@@ -24,18 +24,21 @@ export default defineConfig({
     // ...
     integrations: [
         AstroPWA({
-            // 'prompt' allows us to control the update UX (e.g., show a toast)
-            // instead of silently updating in the background ('autoUpdate').
-            registerType: 'prompt', 
+            // 'autoUpdate' enables background automatic updates without prompting
+            // the user, ensuring uninterrupted Dhikr reading sessions.
+            registerType: 'autoUpdate', 
 
             // Prevent automatic script injection because we handle it manually
-            // in our PwaToast.svelte component for better UI control.
+            // in our PwaToast.svelte component.
             injectRegister: null, 
 
             workbox: {
+                // Instantly activate new service worker and take control of clients
+                skipWaiting: true,
+                clientsClaim: true,
                 // Critical: Includes HTML, SVG, JSON, and WebManifest in the cache.
                 // Standard Vite PWA config often misses these in SSG builds.
-                globPatterns: ['**/*.{html,js,css,ico,png,svg,webmanifest,json,woff,woff2,mpeg,mp3}']
+                globPatterns: ['**/*.{html,js,css,ico,png,svg,webmanifest,json,woff,woff2}']
             }
         })
     ]
@@ -46,7 +49,7 @@ export default defineConfig({
 Standard `vite-plugin-pwa` generates the Service Worker during the Vite build phase. Astro generates static HTML files *after* the Vite build. This causes a race condition where `index.html` and other pages are missing from the SW cache.
 The `@vite-pwa/astro` integration hooks into `astro:build:done` event, ensuring the Service Worker is generated **after** all static pages are built, guaranteeing complete offline support.
 
-## UI Implementation
+## UI Implementation & Background Triggers
 
 The UI logic resides in `src/components/PwaToast.svelte`.
 
@@ -54,9 +57,11 @@ The UI logic resides in `src/components/PwaToast.svelte`.
 This component is mounted in `src/layouts/Layout.astro` with `client:load` to ensure it hydrates immediately.
 
 **Responsibilities:**
-1.  **Registration**: Calls `registerSW` from `virtual:pwa-register`.
-2.  **Offline Ready**: Listens for `onOfflineReady` event to show a "Siap Offline" (Ready for Offline) toast.
-3.  **Update Prompt**: Listens for `onNeedRefresh` event to show an "Update Tersedia" toast with an "Update" button needed since we use `registerType: 'prompt'`.
+1.  **Registration & Update Triggers**: Calls `registerSW` from `virtual:pwa-register`. Automatically triggers `registration.update()` on:
+    - Periodic 1-hour background interval.
+    - Tab focus via `visibilitychange` event listener.
+2.  **Offline Ready**: Listens for `onOfflineReady` event to show a "Siap Offline" (Ready for Offline) toast notification (auto-hides after 5 seconds).
+3.  **Silent Updates**: Since `registerType` is set to `'autoUpdate'` with `skipWaiting` and `clientsClaim`, Service Worker updates activate silently in the background without showing update prompt toasts or forcing page refreshes during Dhikr recitation.
 
 ## Workbox & Caching
 The Service Worker uses **Workbox** under the hood. It uses a **Precache First** strategy for assets defined in `globPatterns`.
@@ -72,7 +77,8 @@ The Service Worker uses **Workbox** under the hood. It uses a **Precache First**
 2.  Open Cache Storage. Check if `index.html` or the specific page path (e.g., `/dzikir-pagi`) is listed.
 3.  Verify `astro.config.mjs` has the correct `globPatterns`.
 
-**Problem**: "Update toast doesn't appear"
+**Problem**: "Updates are not applying"
 **Check**:
 1.  Are you testing in a new browser/incognito? PWA updates require a *change* in the build assets.
-2.  Ensure `registerType` is set to `'prompt'`.
+2.  Ensure `registerType` is set to `'autoUpdate'`.
+

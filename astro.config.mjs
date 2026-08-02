@@ -42,13 +42,15 @@ export default defineConfig({
             },
         }),
         AstroPWA({
-            registerType: 'prompt',
+            registerType: 'autoUpdate',
             injectRegister: null,
             manifest: false,
             devOptions: {
                 enabled: true,
             },
             workbox: {
+                skipWaiting: true,
+                clientsClaim: true,
                 globPatterns: ['**/*.{html,js,css,ico,png,svg,webmanifest,json,woff,woff2}']
             }
         })
