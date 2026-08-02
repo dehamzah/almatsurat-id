@@ -17,6 +17,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ...
 
 
+## [2.0.2] - 2026-08-02
+
+### Added
+- Deployment guide documentation (`docs/DEPLOYMENT.md`).
+
+### Changed
+- Remove notes from homepage footer.
+
+### Fixed
+- Correct Arabic text in Dhikr Al-Matsurat.
+
+
 ## [2.0.1] - 2025-12-31
 
 ### Changed
